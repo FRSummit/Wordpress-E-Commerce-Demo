@@ -1,0 +1,8 @@
+WORDPRESS E-COMMERCE TUTORIAL & WORK PROCEDURE STEP BY STEP
+===================================================================
+
+1. Download latest wordpress - you will get a zip/rar file
+2. Move rar file to xampp > htdocs and extract it there. Change the extract folder name as your project name.
+3. Go to browser and open 'http://localhost:8080/phpmyadmin'.
+4. Create a new database for your project.
+5. 
