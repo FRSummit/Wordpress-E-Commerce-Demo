@@ -29,8 +29,9 @@ Step 2: Custom Theme Development
         theme  : This one houses all the themes on your site. We can create our custom theme here.
         uploads: WordPress stores all your image and media uploads in this folder. By default, uploads are organized in /year/month/ folders. Whenever you are creating a WordPress backup, you should include uploads folder.
         index.php: The index. php file in the root of wp-content.
-19. 
-20. 
+
+19. Now open wp-content > themes folder. There are already 3 default themes is present and an index.php file. We can remove all these themes and create our custom theme. But never delete index.php file. This file is the root of our theme.
+20. Now create a new folder inside theme folder and named it as your custom theme name. Ex: frskynet
 21. 
 22. 
 23. 
