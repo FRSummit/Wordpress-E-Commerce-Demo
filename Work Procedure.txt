@@ -3,6 +3,41 @@ WORDPRESS E-COMMERCE TUTORIAL & WORK PROCEDURE STEP BY STEP
 
 1. Download latest wordpress - you will get a zip/rar file
 2. Move rar file to xampp > htdocs and extract it there. Change the extract folder name as your project name.
-3. Go to browser and open 'http://localhost:8080/phpmyadmin'.
-4. Create a new database for your project.
-5. 
+3. Go to browser and open 'http://localhost:8080/phpmyadmin' and create a new database for your project.
+4. Open your project into a new browser tab. Ex: 'http://localhost:8080/wordpress-ecommerce'. It will open wordpress language settings page.
+5. Select Language as English (United State). Default it is selected. Now click continue.
+6. Now you can see an information page where wordpress suggest you about database setup. As we setup our database we don't need to worry about it. Click 'Let's go'.
+7. Now you need to give database information which we created before.
+8. We need to create user for configuration. Go to phpmyadmin and select our database. Now go to Previleges and create a new user. Ex: [User Name: frsummit, Password: 12345]. Set Global arevileges 'check all'. Now save it as click 'Go'.
+9. Now open our wordpress site. Give the information which we just created. As we are using our local server so we set Database Host as localhost Set your custom prefix. Ex: frs_. Now click submit.
+10. You can see the installation information. Click 'Run Installation'.
+11. Give your wordpress site Title, Username, Password, email. Ex: [ Title: FR SKYNET, Username: frsummit, Password: frs@123, Email: frsummit1@gmail.com ]
+12. Now click 'Install Wordpress'. It takes some seconds to instal. After you see Success message, click 'Login'.
+13. Use your site information to login.
+14. After login you can see the admin pannel of your wordpress site.
+15. Move your cursor to top left Title and you can see 'Visit Site'. Click there and you can see your default site.
+16. 
+17. 
+18. 
+19. 
+20. 
+21. 
+22. 
+23. 
+24. 
+25. 
+26. 
+27. 
+28. 
+29. 
+30. 
+31. 
+32. 
+33. 
+34. 
+35. 
+36. 
+37. 
+38. 
+39. 
+40. 
