@@ -1,6 +1,8 @@
 WORDPRESS E-COMMERCE TUTORIAL & WORK PROCEDURE STEP BY STEP
 ===================================================================
 
+Step 1: Default Site create
+==============================
 1. Download latest wordpress - you will get a zip/rar file
 2. Move rar file to xampp > htdocs and extract it there. Change the extract folder name as your project name.
 3. Go to browser and open 'http://localhost:8080/phpmyadmin' and create a new database for your project.
@@ -16,9 +18,17 @@ WORDPRESS E-COMMERCE TUTORIAL & WORK PROCEDURE STEP BY STEP
 13. Use your site information to login.
 14. After login you can see the admin pannel of your wordpress site.
 15. Move your cursor to top left Title and you can see 'Visit Site'. Click there and you can see your default site.
-16. 
-17. 
-18. 
+16. If we notice out database we can see there are 12 table created when we install wordpress. They are frs_commentmeta, frs_comments, frs_links, frs_options, frs_postmeta, frs_posts, frs_termmeta, frs_terms, frs_term_relationships, frs_term_taxonomy, frs_usermeta, frs_users.
+
+Step 2: Custom Theme Development
+=================================
+17. Open our project file to VS Code editor.
+18. Open wp-content folder. Here we can see plugins, theme, uploads folder and index.php file.
+        wp-content: The wp-content folder is an integral part of any WordPress installation, which is why you find it in the main directory of any site built with the WordPress platform. It houses any content provided by users that is not saved in the database. That includes plugins, themes and uploaded media.
+        plugin : This will contatin the plugins f our projct.
+        theme  : This one houses all the themes on your site. We can create our custom theme here.
+        uploads: WordPress stores all your image and media uploads in this folder. By default, uploads are organized in /year/month/ folders. Whenever you are creating a WordPress backup, you should include uploads folder.
+        index.php: The index. php file in the root of wp-content.
 19. 
 20. 
 21. 
