@@ -33,7 +33,7 @@ Step 2: Custom Theme Development
 19. Now open wp-content > themes folder. There are already 3 default themes is present and an index.php file. We can remove all these themes and create our custom theme. But never delete index.php file. This file is the root of our theme.
 20. Now create a new folder inside theme folder and named it as your custom theme name. Ex: frskynet
 21. We need to create some php and css files to intrtoduct our theme folder 'frskynet' to wordpress that it is our theme and every theme has these default files. These are [style.css, index.php, functions.php, page.php, single.php, front-page.php, header.php, footer.php, archive.php, search.php, 404.php]
-22. But in this case we are going to create these folder step by step.
+22. But in this case we are going to create these files step by step.
 23. Now create 2 files -> index.php and style.css. These are the base file of our theme. Without these files we can't do anything.
 24. Now open any style.css file from other theme [twentynineteen, twentyseventeen, twentynitwenty] and copy the informations which are commented there and paste it to our theme's style.css. Now change the informations as out theme.
                 Ex: 
@@ -58,7 +58,7 @@ Theme Image setup
 26. Click 'Activate' to activate our theme.
 27. Now reload our site. You can see nothing as we hadn't added any code in our theme index.php file.
 
-Adding code in index.php
+Adding code in index.php [We will use flipmart html template for this development tutorial]
 =====================================
 28. Download flipcart template and extract it.
 29. Copy home.html code and paste it to our index.php file, copy assets folder and paste it to our theme folder.
@@ -171,27 +171,53 @@ Move Left Sidebar to separate php file [Adding/Calling one .php file inside anot
 56. move sidebar content from index.php to left-sidebar.php
 57. In index.php file from where we move the sidebar code add <?php get_template_part('left-sidebar'); ?> there. This will call the left-sidebar.php.
 58. Now reload the site. It will load our left-sidebar.php dynamically inside index.php file.
-59. 
-60. 
-61. 
-62. 
-63. 
-64. 
-65. 
-66. 
-67. 
-68. 
-69. 
-70. 
-71. 
-72. 
-73. 
-74. 
-75. 
-76. 
-77. 
-78. 
-79. 
+
+Creating Single page
+==================================
+59. Create a new php file named page.php
+60. Copy all code from blog.php from template and paste it to page.php
+61. Remove from <!Doctype html> to </header> and <footer> to </html> from page.php
+62. Add <?php get_header();?> on the top of the page.php and <?php get_footer();?> at the bottom of the page.php
+63. This will call our header and footer dynamically
+64. Now go to wp_admin page > Pages > All Pages and visit 'Sample Page' by clicking view or if you are using private browser or visit by url just paste '/sample-page' after default url. This will take us our sample page or page.php.
+65. Notice caerfully. If we load flitmart template blog.html there we can see the images but in our sample-page, there is no images we can see. It didn't load our images.
+66. Here we need to add get_template_directory_uri() function before those tags which are using our assets from our asset.
+67. Replace these assets by bellow -
+                if src is like  => <img class="img-responsive" src="assets/images/blog-post/blog_big_01.jpg" alt="">
+                modify it like  => <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/images/blog-post/blog_big_01.jpg" alt="">
+68. If we want to make it secure code put that inside esc_url() function.
+                Ex:
+                        <img class="img-responsive" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/blog-post/blog_big_01.jpg" alt="">
+
+69. Now reload our site. See ? There all of the images are loaded.
+70. Now we are going to make a single post dynamic and remove the rest of the code.
+71. Keep a single post and remove/comment all other post.
+72. Also remove/comment pagination part. We won't keep it in this file.
+73. Reload the site sample-page and see the changes.
+74. We will remove image too later. Let's make dynamic the title of the post. Follow the bellow steps -
+                1. Remove from <div class="blog-post  wow fadeInUp"> to pagination and paste bellow code there
+                        <?php 
+                                while ( have_posts() ) : the_post(); ?>
+                                        <div class="blog-post  wow fadeInUp">
+                                                <h1>
+                                                        <a href="<?php the_permalink();?>"><?php the_title(); ?></a>
+                                                </h1>
+                                                <?php the_content(); ?>
+                                        </div>
+			        <?php endwhile;
+		        ?>
+                2. Reload site page and see the changes. It is fully dynamic now.
+
+75. Now move single page sidebar into a separate php file.
+76. Create right-sidebar.php
+77. Move sidebar code from page.php to right-sidebar.php
+78. Add <?php get_template_part('right-sidebar'); ?> to page.php from where we moved right sidebar code.
+79. Reload Page. See no changes. But right sidebar is dynamic and loads from a separate file.
+
+==================================================================================
+Till now we just created our custom theme. From now we will work woocommerce.
+==================================================================================
+
 80. 
 81. 
 82. 
