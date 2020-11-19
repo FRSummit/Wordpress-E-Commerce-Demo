@@ -77,7 +77,9 @@ Make Dynamic index.php file
                         <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/css/bootstrap.min.css">
 34. Now do it for all assets like css, js, images or something else. Just replace 'assets/' to '<?php echo esc_url(get_template_directory_uri()); ?>/assets/'
 35. Now reload our site. We can see the index page properly.
-36. Actually what we have done till now, it is not a proper way or right way. We just want to see our page and test that everythins works properly. This is why we use get_template_directory() function. If we want to make all this thing in a proper way we have to call all of this (css, js) from our function.php page which we haven't created.
+36. Actually what we have done till now, it is not a proper way or right way. We just want to see our page and test that everythins works properly. This is why we use get_template_directory() function. If we want to make all this thing in a proper way we have to call all of this (css, js) from our function.php page which we haven't created. From next we will do that.
+
+
 37. 
 38. 
 39. 
