@@ -57,15 +57,27 @@ Theme Image setup
                 6. Click on 'Theme Details', we can see the details which we had added in style.css file.
 26. Click 'Activate' to activate our theme.
 27. Now reload our site. You can see nothing as we hadn't added any code in our theme index.php file.
-28. 
-29. 
-30. 
-31. 
-32. 
-33. 
-34. 
-35. 
-36. 
+
+Adding code in index.php
+=====================================
+28. Download flipcart template and extract it.
+29. Copy home.html code and paste it to our index.php file, copy assets folder and paste it to our theme folder.
+30. Reload site. We can see the broken page or no style page. Lets do it dynamic style.
+
+Make Dynamic index.php file
+===================================
+31. Open index.php file and notice the stylesheet link.
+32. Add <?php get_template_directory_uri(); ?> before href url assets/..... . It should be echo. So modify that as <?php echo get_template_directory_uri(); ?>
+                Ex:
+                        if link is like => <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+                        modify it like  => <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css">
+
+33. If we want to make it secure code put that inside esc_url() function.
+                Ex:
+                        <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/css/bootstrap.min.css">
+34. Now do it for all assets like css, js, images or something else. Just replace 'assets/' to '<?php echo esc_url(get_template_directory_uri()); ?>/assets/'
+35. Now reload our site. We can see the index page properly.
+36. Actually what we have done till now, it is not a proper way or right way. We just want to see our page and test that everythins works properly. This is why we use get_template_directory() function. If we want to make all this thing in a proper way we have to call all of this (css, js) from our function.php page which we haven't created.
 37. 
 38. 
 39. 
