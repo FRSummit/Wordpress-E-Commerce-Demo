@@ -24,11 +24,11 @@ Step 2: Custom Theme Development
 =================================
 17. Open our project file to VS Code editor.
 18. Open wp-content folder. Here we can see plugins, theme, uploads folder and index.php file.
-        wp-content: The wp-content folder is an integral part of any WordPress installation, which is why you find it in the main directory of any site built with the WordPress platform. It houses any content provided by users that is not saved in the database. That includes plugins, themes and uploaded media.
-        plugin : This will contatin the plugins f our projct.
-        theme  : This one houses all the themes on your site. We can create our custom theme here.
-        uploads: WordPress stores all your image and media uploads in this folder. By default, uploads are organized in /year/month/ folders. Whenever you are creating a WordPress backup, you should include uploads folder.
-        index.php: The index. php file in the root of wp-content.
+                wp-content: The wp-content folder is an integral part of any WordPress installation, which is why you find it in the main directory of any site built with the WordPress platform. It houses any content provided by users that is not saved in the database. That includes plugins, themes and uploaded media.
+                plugin    : This will contatin the plugins f our projct.
+                theme     : This one houses all the themes on your site. We can create our custom theme here.
+                uploads   : WordPress stores all your image and media uploads in this folder. By default, uploads are organized in /year/month/ folders. Whenever you are creating a WordPress backup, you should include uploads folder.
+                index.php : The index. php file in the root of wp-content.
 
 19. Now open wp-content > themes folder. There are already 3 default themes is present and an index.php file. We can remove all these themes and create our custom theme. But never delete index.php file. This file is the root of our theme.
 20. Now create a new folder inside theme folder and named it as your custom theme name. Ex: frskynet
@@ -77,10 +77,139 @@ Make Dynamic index.php file
                         <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/css/bootstrap.min.css">
 34. Now do it for all assets like css, js, images or something else. Just replace 'assets/' to '<?php echo esc_url(get_template_directory_uri()); ?>/assets/'
 35. Now reload our site. We can see the index page properly.
-36. Actually what we have done till now, it is not a proper way or right way. We just want to see our page and test that everythins works properly. This is why we use get_template_directory() function. If we want to make all this thing in a proper way we have to call all of this (css, js) from our function.php page which we haven't created. From next we will do that.
+36. Actually what we have done till now, it is not a proper way or right way. We just want to see our page and test that everythins works properly. This is why we use get_template_directory() function. If we want to make all this thing in a proper way we have to call all of this (css, js) from our functions.php page which we haven't created. From next we will do that.
 
+Dynamic properly
+=========================================
+37. Open twentyseventeen > header.php and copy html start tag code and paste it to out index.html > html tag
+                Ex: 
+                        before add : <html lang="en">
+                        after add  : <html <?php language_attributes(); ?> class="no-js no-svg">
+38. Remove first 2 lines of meta description (charset="utf-8", http-equiv="Content-Type" ...).
+39. Copy bloginfo('charset') from twentyseventeen > header.php and paste it to our index.php file.
+                Ex: 
+                        before add : nothing
+                        after add  : <meta charset="<?php bloginfo( 'charset' ); ?>">
+40. Remove next 4 lines of meta (description, author, keywords, robots). These will dynamic automatically from wordpress.
 
-37. 
-38. 
-39. 
-40. 
+Dynamic Title tag
+===================================
+41. Replace text from title tag by <?php bloginfo('name'); ?>. Now reload our site. We can see the changes of title. Open admin site > Settings > General > Site Title. This is where we get our title.
+42. Now add ' | <?php bloginfo('description'); ?>' after title name function tag. Now reload the site. We can see the description also added with the title.
+43. Another way is adding add_theme_support('title-tag'); function in our functions.php file. Lets create functions.php file.
+
+44. Create function.php file inside theme > frskynet (our theme name).
+45. We will create 2 new php files named header and footer where we put our header and footer. This is because we don't want to duplicate our header and footer code. We will reuse this header, footer. Before that we add some functions inside head and body tag.
+                1. Add <?php wp_head(); ?> before head tag ends. By this function we will pass lots of functionality from functions.php to our php files. Ex: css, header title tag, description etc.
+                2. Add <?php wp_footer(); ?> before body tag ends. By this we will pass js resources from functions.php to our php files.
+46. Go to function and start by <?php from the first line. Now add add_theme_support('title-tag'); function for title tag. Now remove title tag from index.php and reload the site. Notice the title of the site. This is better way than previous.
+47. 
+48. If we notice that when we added <?php wp_head(); ?> and <?php wp_footer(); ?> we can see an user bar at the top of the site page. If we don't use these function for head, footer it won't come out. Remove <?php wp_head() ?>, <?php wp_footer() ?> from index.php and add_theme_support( 'title-tag' ); from functions.php, the user bar will vanish and we can't see our site title there. Site title will replace by localhost name. So it is important to know about this.
+
+Separate Header and Footer styles and js sources
+====================================================
+49. For style follow bellow steps -
+                1. Create a function like function frskynet_enqueue_style() {}
+                2. Use code reference perameter for script - 
+                        wp_enqueue_style ($handle, $src, $deps, $version, $media);
+                                $handle : css/js file id
+                                $src    : source location
+                                $deps   : dependencies, type of array()
+                                $version: version of code
+                                $media  : (optional)
+                3. Remove style link from index.
+                4. Add style link into function
+                        Ex: 
+                                index.php :
+                                        <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/css/main.css">
+                                
+                                functions.php :
+                                        function frskynet_enqueue_style() {
+                                                wp_enqueue_style ('main',get_template_directory_uri() . '/assets/css/main.css', array(), '1.0');
+                                        }
+                                        add_action('wp_enqueue_scripts', 'frskynet_enqueue_style');
+                5. Reload site page. See there is no changes. The style is now dynamically called by function.
+                6. Replace/Change rest of the styles link.
+                7. To add our theme style.css just add wp_enqueue_style('style', get_stylesheet_uri()); this inside style function
+
+50. For script follow bellow steps -
+                1. Create a function like function frskynet_enqueue_script() {}
+                2. Use code reference perameter for script - 
+                        wp_enqueue_style ($script-name, $src, $deps, $version, boolean);
+                                $script-name : js file id
+                                $src    : source location (get_template_directory_uri() . '/assets/js/bootstrap-select.min.js')
+                                $deps   : dependencies, type of array()
+                                $version: version of code
+                                boolean  : true/false
+                                                if true, this script will add before the body tag ends
+                                                if false, this script will add before the head tag ends
+                3. Remove js src from index.
+                4. Add js link into function
+                        Ex: 
+                                index.php :
+                                        <script src="assets/js/jquery-1.11.1.min.js"></script>
+                                
+                                functions.php :
+                                        function frskynet_enqueue_script() {
+                                                wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/jquery-1.11.1.min.js', array(), 1, true);
+                                        }
+                                        add_action('wp_enqueue_scripts', 'frskynet_enqueue_script');
+                5. Reload site page. See there is no changes. The js is now dynamically called by function.
+                6. Replace/Change rest of the js srcs.
+                7. To add our theme default jquery, just add wp_enqueue_script('jquery'); at the top of the script function. No need if we add template's js srcs.
+
+Separate Header and Footer into a separate file
+=====================================================
+51. Create 2 files header.php and footer.php
+52. Move from <!Doctype html> to </header> and paste it to our header.php files and move from <footer> to </html> and paste it to our footer.php file.
+53. Add <?php get_header();?> on the top of the index.php and <?php get_footer();?> at the bottom of the index.php
+54. Now reload the site. It will load our site header and footer from header.php and footer.php dynamically.
+
+Move Left Sidebar to separate php file [Adding/Calling one .php file inside another .php file]
+=======================================================
+55. Create a new php file and named it left-sidebar.php
+56. move sidebar content from index.php to left-sidebar.php
+57. In index.php file from where we move the sidebar code add <?php get_template_part('left-sidebar'); ?> there. This will call the left-sidebar.php.
+58. Now reload the site. It will load our left-sidebar.php dynamically inside index.php file.
+59. 
+60. 
+61. 
+62. 
+63. 
+64. 
+65. 
+66. 
+67. 
+68. 
+69. 
+70. 
+71. 
+72. 
+73. 
+74. 
+75. 
+76. 
+77. 
+78. 
+79. 
+80. 
+81. 
+82. 
+83. 
+84. 
+85. 
+86. 
+87. 
+88. 
+89. 
+90. 
+91. 
+92. 
+93. 
+94. 
+95. 
+96. 
+97. 
+98. 
+99. 
+100. 
