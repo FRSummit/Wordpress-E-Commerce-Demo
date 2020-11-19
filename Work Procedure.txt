@@ -32,11 +32,24 @@ Step 2: Custom Theme Development
 
 19. Now open wp-content > themes folder. There are already 3 default themes is present and an index.php file. We can remove all these themes and create our custom theme. But never delete index.php file. This file is the root of our theme.
 20. Now create a new folder inside theme folder and named it as your custom theme name. Ex: frskynet
-21. 
-22. 
-23. 
-24. 
-25. 
+21. We need to create some php and css files to intrtoduct our theme folder 'frskynet' to wordpress that it is our theme and every theme has these default files. These are [style.css, index.php, functions.php, page.php, single.php, front-page.php, header.php, footer.php, archive.php, search.php, 404.php]
+22. But in this case we are going to create these folder step by step.
+23. Now create 2 files -> index.php and style.css. These are the base file of our theme. Without these files we can't do anything.
+24. Now open any style.css file from other theme [twentynineteen, twentyseventeen, twentynitwenty] and copy the informations which are commented there and paste it to our theme's style.css. Now change the informations as out theme.
+                Ex: 
+                /*
+                        Theme Name: F R Skynet
+                        Text Domain: F R Summit
+                        Version: 1.0
+                        Author: F R Summit
+                        Author URI: https://frsummit.github.io/
+                        Description: F R Summit
+                */
+
+Theme Image setup
+====================================
+25. Now open browser and go to Appearance > Theme. We can see our theme is there but there is no profile/cover image. To create our theme image follow bellow steps.
+                1. 
 26. 
 27. 
 28. 
