@@ -49,9 +49,14 @@ Step 2: Custom Theme Development
 Theme Image setup
 ====================================
 25. Now open browser and go to Appearance > Theme. We can see our theme is there but there is no profile/cover image. To create our theme image follow bellow steps.
-                1. 
-26. 
-27. 
+                1. Select your theme image and open it in paint or photoshop.
+                2. Resize that image as 1200x900 (width x height).
+                3. Rename it as 'screenshot'.
+                4. Save it.
+                5. Go to browser Appearance > Theme and reload it. You can see the image for your theme.
+                6. Click on 'Theme Details', we can see the details which we had added in style.css file.
+26. Click 'Activate' to activate our theme.
+27. Now reload our site. You can see nothing as we hadn't added any code in our theme index.php file.
 28. 
 29. 
 30. 
