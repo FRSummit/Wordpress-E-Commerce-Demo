@@ -224,7 +224,7 @@ Woocommerce setup
 81. Go to wp-content > plugin folder and extract woocommerce in this location.
 82. Now we will follow woocommerce theme support tutorial 'https://docs.woocommerce.com/document/third-party-custom-theme-compatibility/'.
 83. Go to theme > frskynet > functions.php and add following code -
-                add_action('action_setup_theme ', 'woocommerce_support');
+                add_action('after_setup_theme ', 'woocommerce_support');
                 function woocommerce_support() {
                         add_theme_support('woocommerce');
                 }
@@ -251,17 +251,147 @@ Create First Product
 
 91. Go to wp_admin > Pages > All Pages. We can see there are new pages aded after we installed woocommerce. They are Cart, Checkout, My account, Shop.
 92. Open Shop page by clicking view. We can see our product is there which we just created. Now we will design that page as main html page and it's detail page will look like detail.html page.
-93. 
-94. 
-95. 
-96. 
-97. 
-98. 
-99. 
-100. 
+
+Design Shop/Category Page
+==================================
+93. After adding a product, we can see that style is not fixed for shop page and product single/detail page.
+94. Open header.php. Notice body start tag. Remove body class and add body function as <?php body_class(); ?>. It will load woocommerce body style. 
+95. Download dummy data. Go to wp_admin > Tools > Import > Wordpress (install)
+                # Download Dummy Data from 'https://github.com/woocommerce/woocommerce/tree/master/sample-data'
+96. Now click 'Run Importer'. Choose dummy-data.xml file. Upload that. Select admin User and submit.
+97. Wait for importing.
+98. After Import open wp_admin > Product > All Product. Our dummy products are there. Reload Shop page. We can see the all of the dummy data is there. Now it will be easy to design that page.
+99. Also we can see the paging is present.
+100. Open woocommerce.php. Before loop, write Hello World in a h1 tag.
+                1. Reload Shop page. We can see the Hello World text is there. It comes from woocommerce.php
+                2. Click any product. Hello World is present there too.
+                # So single product page and shop page both comes from woocommerce.php template.
+                # So if sidebar is placed in Shop page at the right and in Product details page it placed in left side, there must be a problem. Read the woocommerce support documentation. There it says that - 'Note: When creating woocommerce.php in your theme’s folder, you will not be able to override the woocommerce/archive-product.php custom template as woocommerce.php has priority over archive-product.php. This is intended to prevent display issues.'
+                # This means inside woocommerce > archive.php won't work when we create woocommerce.php.
+101. Open woocommerce > template > archive-product.php. Now write 'Hello from woocommerce-product' in a h1 tag before loop starts "woocommerce_product_loop_start()".
+102. Now reload Shop page. Shop page means archive-product.php which is inside woocommerce > template. After reloading we can't see the 'Hello from woocommerce-product'. Because frskynet > woocommerce.php is priority high than woocommerce > template.
+103. Delete woocommerce.php and reload Shop page. Now we are able to see 'Hello from woocommerce-product' text. We will use woocommerce.php if our Shop page and Detail/Product page will have the same design. That means both page contains sidebar in the left side or right side. In our case, Shop(blog.html) page contains the side bar in it's right and Details/Product (detail.html) page contains the side bar in it's left. So we will use woocommerce template.
+104. Woocommerce's default layout loads from woocommerce > template. So if we update something here then it will be overriden. Site win't get the edited layout. So we copy template folder from plugin > woocommerce and paste it to our theme folder and rename this folder 'woocommerce' instead 'template'.
+105. Now open archive-product.php from out theme and update that text as 'Hello from our theme template'.
+106. Reload Shop page. We can see the changes comes from our theme > woocommerce > archive-product.php
+107. If we need to update woocommerce plugins or other plugins, we can update those and our design never get broken as we use it from our theme.
+108. Remove text from plugins > woocommerce > template > archive-product.php. Now Lets design Shop page.
+                Design Shop Page: 
+                        1. Open category.html in a new tab from default template (flipmart). We can see the sidebar is placed in left.
+                        2. Now open category.html in editor. Search for 'sidebar'. Notice that, sidebar starts by class 'col-md-3' and contant starts by class 'col-md-9'. There are 3 more divition (div) before these sidebar and content. We will copy from that. [copy from class="body-content outer-top-xs"]
+                                Copy bellow code: 
+                                        <div class="body-content outer-top-xs">
+                                                <div class='container'>
+                                                        <div class='row'>
+                        3. Open archive-product.php. Paste after get_header() function
+                        4. Now before get_footer(), end those div tag. Just 3 times </div>
+                        5. There should be error for php start & end tag. Before paste html code close php by '?>' and start php by '<?php'. Inside these paste your html code.
+                        6. Now reload Shop page. See the page content got the 'col-md-9'.
+                        7. Copy breadcrumb from category.html and paste it in archive-product.php after get_header() before our html code we paste last time.
+                        8. Reload Shop page and see the breadcrumb.
+                        9. Copy sidebar. It starts by 'col-md-3' and paste it after container > row class.
+                        10. Use bellow code or copy from category.html after sidebar code and paste it after sidebar html code in archive-product.php
+                                <div class='col-md-9'>
+                                        <div class="clearfix filters-container m-t-10"></div>
+                                * This time we are not going to copy the banner part.
+                        11. This code will end before get_footer(). So ther 2 new </div> will place.
+                        12. Reload Shop page and see the sidebar is present.
+
+109. Open project's wp-config.php from root folder and edit WP_DEBUG true. It should be line number 80. Now reload Shop page. You will see an error after the product pagination. It says that - Theme without sidebar.php is deprecated.....
+110. Create sidebar.php inside our theme. Reload Shop page. No error there.
+111. Open archive-product.php and select code for sidebar. It starts by class="col-md-3 sidebar" and finish before class="col-md-9". Move this code to sidebar and reload SHop page. We can see the sidebar is not present in the left side. It is bellow of the container.
+112. Now go to archive-product.php. Search for sidebar code. [do_action('woocommerce_sidebar');?>] Move this function to that place, from where we moved our sidebar html code. Paste it with php start and end tag. Ex: <?php do_action('woocommerce_sidebar');?> ?>. Now Reload Shop page. See there design is fixed. This time Shop page's left sidebar comes from sidebar.php.
+113. 
+114. 
+115. 
+116. 
+117. 
+118. 
+119. 
+120. 
+121. 
+122. 
+123. 
+124. 
+125. 
+126. 
+127. 
+128. 
+129. 
+130. 
+131. 
+132. 
+133. 
+134. 
+135. 
+136. 
+137. 
+138. 
+139. 
+140. 
+141. 
+142. 
+143. 
+144. 
+145. 
+146. 
+147. 
+148. 
+149. 
+150. 
+151. 
+152. 
+153. 
+154. 
+155. 
+156. 
+157. 
+158. 
+159. 
+160. 
+161. 
+162. 
+163. 
+164. 
+165. 
+166. 
+167. 
+168. 
+169. 
+170. 
+171. 
+172. 
+173. 
+174. 
+175. 
+176. 
+177. 
+178. 
+179. 
+180. 
+181. 
+182. 
+183. 
+184. 
+185. 
+186. 
+187. 
+188. 
+189. 
+190. 
+191. 
+192. 
+193. 
+194. 
+195. 
+196. 
+197. 
+198. 
+199. 
+200. 
 
 ===============================================
-HOW TO UPDATE WORDPRESS
+HOW TO UPDATE WORDPRESS MANUALLY
 ===============================================
 #=>> Follow this link - https://www.youtube.com/watch?v=hLo_p6kk44k
 1. Deactivate all of your plugins.

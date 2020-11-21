@@ -1,2 +1,10 @@
 2020-11-21T06:52:06+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress-ecommerce\wp-admin\includes\class-wp-filesystem-direct.php on line 82
 
+2020-11-21T08:36:05+00:00 CRITICAL Uncaught Error: Call to undefined function the_template_part() in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\page.php:25
+Stack trace:
+#0 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\wordpress-ecommerce\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wordpress-ecommerce\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\page.php on line 25
+

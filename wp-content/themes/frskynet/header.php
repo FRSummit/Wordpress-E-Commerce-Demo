@@ -9,7 +9,7 @@
 
         <?php wp_head(); ?>
 	</head>
-    <body class="cnt-home">
+    <body <?php body_class(); ?>>
 		<!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
 
