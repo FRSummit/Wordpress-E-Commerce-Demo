@@ -259,3 +259,14 @@ Create First Product
 98. 
 99. 
 100. 
+
+===============================================
+HOW TO UPDATE WORDPRESS
+===============================================
+#=>> Follow this link - https://www.youtube.com/watch?v=hLo_p6kk44k
+1. Deactivate all of your plugins.
+2. Download latest WordPress.
+3. Remove wp-admin, wp-includes from the root folder of the project.
+4. Copy latest WordPress's wp-admin, wp-includes and paste it to project's root folder.
+5. Open wp-content from the latest WordPress and copy everything from there and paste it to our project's wp-content. If there need to replace anything, replace that.
+6. Copy the rest of the files from latest WordPress's root folder and paste those to our project's root folder. If there need to replace anything, replace those all.
