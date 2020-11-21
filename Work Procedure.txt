@@ -60,7 +60,7 @@ Theme Image setup
 
 Adding code in index.php [We will use flipmart html template for this development tutorial]
 =====================================
-28. Download flipcart template and extract it.
+28. Download flipmart template and extract it.
 29. Copy home.html code and paste it to our index.php file, copy assets folder and paste it to our theme folder.
 30. Reload site. We can see the broken page or no style page. Lets do it dynamic style.
 
@@ -218,19 +218,39 @@ Creating Single page
 Till now we just created our custom theme. From now we will work woocommerce.
 ==================================================================================
 
-80. 
-81. 
-82. 
-83. 
-84. 
-85. 
-86. 
-87. 
-88. 
-89. 
-90. 
-91. 
-92. 
+Woocommerce setup
+===============================
+80. Download Woocommerce from 'https://wordpress.org/plugins/woocommerce/'.
+81. Go to wp-content > plugin folder and extract woocommerce in this location.
+82. Now we will follow woocommerce theme support tutorial 'https://docs.woocommerce.com/document/third-party-custom-theme-compatibility/'.
+83. Go to theme > frskynet > functions.php and add following code -
+                add_action('action_setup_theme ', 'woocommerce_support');
+                function woocommerce_support() {
+                        add_theme_support('woocommerce');
+                }
+
+84. Now duplicate page.php and rename that woocommerce.php
+85. Open woocommerce.php and notice the loop. Delete that part (loop) and place bellow function -
+                <?php woocommerce_content(); ?>
+
+86. Now go to wp_admin > Plugin > Installed Plugin, We can see the Woocommerce is present here for activation. If we removed the functionality from function.php for woocommerce theme support and try to activate woocommerce, it will show you a message that will say add woocommerce theme support to your functions.php
+87. Now activate woocommerce from wp_admin > Plugin > Installed Plugin.
+88. Now we will setup our woocommerce widget configuration.
+89. After woocommerce install and setup is done if we notice our database we can see there are 31 new tables are added.
+
+Create First Product
+=====================================
+90. Now, Let's create our first product. 
+                1. Open detail.html from default downloaded flipmart template.
+                2. Copy product title, description and go to wp_admin > Product > Add New. Then paste it to title, long description, short description bar.
+                3. Now create a category from the right sidebar. Name something. Ex: Fruit.
+                4. Add a product image from the right sidebar.
+                5. We can add more product image into our gallery. Add more 4 product image to gallery.
+                6. Add regular and sell price.
+                7. Publish the prouct.
+
+91. Go to wp_admin > Pages > All Pages. We can see there are new pages aded after we installed woocommerce. They are Cart, Checkout, My account, Shop.
+92. Open Shop page by clicking view. We can see our product is there which we just created. Now we will design that page as main html page and it's detail page will look like detail.html page.
 93. 
 94. 
 95. 

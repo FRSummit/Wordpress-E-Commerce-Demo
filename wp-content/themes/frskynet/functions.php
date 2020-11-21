@@ -42,3 +42,9 @@ function frskynet_enqueue_script() {
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), 1, true);
 }
 add_action('wp_enqueue_scripts', 'frskynet_enqueue_script');
+
+//*** Woocommerce Theme Support
+add_action  ('action_setup_theme ', 'woocommerce_support');
+function woocommerce_support() {
+    add_theme_support('woocommerce');
+}
