@@ -53,14 +53,32 @@ Description: F R Summit
 .woocommerce ul.products li.product .price ins {
     text-decoration: none;
 } */
+
 .woocommerce ul.products li.product .price ins {
-        text-decoration: none;
-        float: left;
-        margin-right: 10px;
+    text-decoration: none;
+    float: left;
+    margin-right: 10px;
 }
+
 .woocommerce ul.products li.product .price del {
-        display: inline-block;
-        color: #d3d3d3;
-        opacity: 1;
-        font-weight: normal;
+    display: inline-block;
+    color: #d3d3d3;
+    opacity: 1;
+    font-weight: normal;
+}
+
+.pagination-container {
+    float: right;
+}
+
+.pagination-container ul li a.next.page-numbers,
+.pagination-container ul li a.prev.page-numbers {
+    background: #ccc none repeat scroll 0 0;
+    color: #fff;
+    padding: 0 9px;
+    border-radius: 4px;
+}
+.pagination-container ul li:hover a.next.page-numbers,
+.pagination-container ul li:hover a.prev.page-numbers {
+    background: #333;
 }

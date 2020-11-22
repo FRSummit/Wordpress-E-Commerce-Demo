@@ -75,7 +75,13 @@ if (woocommerce_product_loop()) {
     do_action('woocommerce_before_shop_loop');
 
     ?>
-	<!-- <h1>Hello from our theme template</h1> -->
+    <!-- <h1>Hello from our theme template</h1> -->
+    <div class="row">
+        <div class="col-md-3">Col 1</div>
+        <div class="col-md-3">Col 2</div>
+        <div class="col-md-3">Col 3</div>
+        <div class="col-md-3"><?php flipmart_pagination(); ?></div>
+    </div>
 	<?php
 
     woocommerce_product_loop_start();
@@ -101,6 +107,11 @@ if (woocommerce_product_loop()) {
      * @hooked woocommerce_pagination - 10
      */
     do_action('woocommerce_after_shop_loop');
+    ?>
+    
+    <?php flipmart_pagination(); ?>
+
+    <?php
 } else {
     /**
      * Hook: woocommerce_no_products_found.

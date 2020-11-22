@@ -626,7 +626,7 @@ Dynamic Breadcrumb, pagination
                 1. visit 'https://www.businessbloomer.com/woocommerce-visual-hook-guide-archiveshopcat-page/'
                 2. Notice the hook before the Showing result. (3rd one) [woocommerce_before_shop_loop]
                 3. Search 'woocommerce_before_shop_loop' in archive-product.php
-                4.  Here we can see there are 3 items. The last 2 items are 'woocommerce_result_count - 20' and 'woocommerce_catalog_ordering - 30' (in the comment).
+                4. Here we can see there are 3 items. The last 2 items are 'woocommerce_result_count - 20' and 'woocommerce_catalog_ordering - 30' (in the comment).
                 5. But we have only 'woocommerce_catalog_ordering - 30' in category.html but 'woocommerce_result_count - 20' is not there.
                 6. Copy the last function and modify libe bellow
                         add_action( 'init', 'frskynet_remove_woocommerce_result_count' );
@@ -636,8 +636,139 @@ Dynamic Breadcrumb, pagination
                 7. Paste it to functions.php
                 8. Reload the Shop page. See the changes.
 
-122. 
-123. 
+122. Remove default catelog ordering from top of the products category section. (Shop)
+                1. At first notice the left side of product category section. It is default ordering. Remove this default ordering.
+                2. Copy removing item function's code and paste it the functions.php
+                3. Search 'woocommerce_before_shop_loop' in archive-product.php
+                4. We are going to remove 'woocommerce_catalog_ordering - 30' item.
+                5. Modify code like bellow
+                        add_action( 'init', 'frskynet_remove_woocommerce_catelog_ordering' );
+                        function frskynet_remove_woocommerce_catelog_ordering() {
+                                remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30, 0 );
+                        }
+                6. Notice the remove_action() function, 2nd perameter is the name of item what we want to remove and the 3rd perameter is the number of that item which declear in archive-product.php
+                7. Reload Shop page. See there is no default catelog ordering anymore.
+
+123. Pagination - Grid/List, Sorting by position, Show product, paging
+                1. Open category.html and notice the ordering section by inspect element (grid, list ....)
+                2. It is under the class="clearfix filters-container m-t-10" section. And then product looping class="search-result-container".
+                3. Now notice our project's Shop pages loop section. We already have class="clearfix filters-container m-t-10" section.
+                4. Open archive-product.php. There we can find the loop for product. 
+                        woocommerce_product_loop_start();
+                5. Before this loop, we can find a divition (div) class="clearfix filters-container m-t-10" which is under another divition (div) class="col-md-9". We already have it.
+                6. We need a row after the divition (div) class="clearfix filters-container m-t-10" and inside the row we need a column.
+                7. Go after do_action('woocommerce_before_shop_loop'); and before woocommerce_product_loop_start();
+                8. Create a divition (div) and class="row".
+                9. Create 4 divition (div) and class="col-md-3" inside the row divition (div).
+                        <div class="row">
+                                <div class="col-md-3">Col 1</div>
+                                <div class="col-md-3">Col 2</div>
+                                <div class="col-md-3">Col 3</div>
+                                <div class="col-md-3">Col 4</div>
+                        </div>
+                10. Reload Shop page. We have the row with 4 column.
+                11. Pagination - 
+                        1. Inspect category.html pagination. It developed by ul, li and this ul,li is under a divition (div) class="pagination-container".
+                        2. So if we add the same divition (div) class="pagination-container" before our pagination we will get the same style as category.html.
+                        3. We can do this by js or custom php. But custom php is better than js. (In this case).
+                        4. Google 'wordpress pagination with custom class' then visit 'https://wordpress.stackexchange.com/questions/126080/changing-pagination-list-class'
+                        5. Copy bellow code from the site - 
+                                function bittersweet_pagination() {
+                                    global $wp_query;
+                                    if ($wp_query->max_num_pages <= 1) {
+                                        return;
+                                    }
+                                    $big = 999999999; // need an unlikely integer
+                                    $pages = paginate_links(array(
+                                        'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                                        'format' => '?paged=%#%',
+                                        'current' => max(1, get_query_var('paged')),
+                                        'total' => $wp_query->max_num_pages,
+                                        'type' => 'array',
+                                    ));
+                                    if (is_array($pages)) {
+                                        $paged = (get_query_var('paged') == 0) ? 1 : get_query_var('paged');
+                                        echo '<div class="pagination-wrap"><ul class="pagination">';
+                                        foreach ($pages as $page) {
+                                            echo "<li>$page</li>";
+                                        }
+                                        echo '</ul></div>';
+                                    }
+                                }
+                        6. Paste it to functions.php
+                        7. Rename the function as flipmart_pagination.
+                        8. Notice carefullt. What is done here ? Here we use paginate_links ans using this we are passing some perameters. We can pass more perameters by this.
+                        9. In the 2nd condition's first echo - we can place our custom class here. Modify this echo like bellow - 
+                                echo '<div class="pagination-container"><ul class="list-inline list-unstyled">';
+                        10. Now go to archive-product.php and go to the row we created with 4 columns.
+                        11. Replace 'Col 4' by the pagination function name.
+                                before: <div class="col-md-3">Col 4</div>
+                                after : <div class="col-md-3"><?php flipmart_pagination(); ?></div>
+                        12. Reload Shop page. We can see the pagination here.
+                        13. If we inspect the Shop page's pagination we can see the '<div class="pagination-wrap"><ul class="pagination">' - these div and ul are added by the paginaation function.
+                        14. Notice there next text come instead the arrow button (previous, next arrow button).
+                        15. Google 'paginate_links' and visit 'https://wpseek.com/function/paginate_links/' or 'https://developer.wordpress.org/reference/functions/paginate_links/'
+                        16 There we can see the peremeters which can pass by this function.
+                        17. From there we take 3 perameter.
+                                'prev_next'          => true,
+                                'prev_text'          => __( '&laquo; Previous' ),
+                                'next_text'          => __( 'Next &raquo;' ),
+                        18. Now paste it after the other perameters. Now it looks like bellow - 
+                                $pages = paginate_links(array(
+                                    'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                                    'format' => '?paged=%#%',
+                                    'current' => max(1, get_query_var('paged')),
+                                    'total' => $wp_query->max_num_pages,
+                                    'type' => 'array',
+                                    'prev_next' => true,
+                                    'prev_text' => __( '&laquo; Previous' ),
+                                    'next_text' => __( 'Next &raquo;' ),
+                                ));
+                        19. If we make false for 'prev_next', button won't show. '&laquo; Previous' means for previous we can see the previous arrow with 'Previous' text. 'Next &raquo;' means for previous we can see the next arrow with 'Next' text. 
+                        20. Remove Previous and Next text from there.
+                                'prev_text' => __( '&laquo;' ),
+                                'next_text' => __( '&raquo;' ),
+                        21. Reload the page. See there is no next or previous text. Only arrow.
+                        22. Still we have not the same style. Google 'font awsome next arrow' and get right arrow code.
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        23. Paste that code for both os the peremeters. Modify the previous like bellow
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        24. code should looks like bellow - 
+                                'prev_text' => __( '<i class="fa fa-arrow-left" aria-hidden="true"></i>' ),
+                                'next_text' => __( '<i class="fa fa-arrow-right" aria-hidden="true"></i>' ),
+                        25. Reload Shop page. See the arrow. This time arrow doesn't match.
+                        26. Copy from category.html font awsome arrows and paste it to paginate_links() function's perameter value.
+                        27. Code should looks like bellow - 
+                                'prev_text' => __( '<i class="fa fa-angle-left"></i>' ),
+                                'next_text' => __( '<i class="fa fa-angle-right"></i>' ),
+                        28. Reload Shop page. See the arrow. Almost same.
+                        29. Pick the class="pagination-container" and add following style to style.css - 
+                                .pagination-container {
+                                    float: right;
+                                }
+                                .pagination-container ul li a.next.page-numbers,
+                                .pagination-container ul li a.prev.page-numbers {
+                                    background: #ccc none repeat scroll 0 0;
+                                    color: #fff;
+                                    padding: 0 9px;
+                                    border-radius: 4px;
+                                }
+                                .pagination-container ul li:hover a.next.page-numbers,
+                                .pagination-container ul li:hover a.prev.page-numbers {
+                                    background: #333;
+                                }
+                        30. Reload Shop page. See the changes.
+                        31. Now notice the Shop page bottom pagination. Let's remove this.
+                                1. Go to archive-product.php and Look for do_action('woocommerce_after_shop_loop'); function after  woocommerce_product_loop_end(); function.
+                                2. There is a 'woocommerce_pagination - 10' already set by default.
+                                3. We remove this by functions.php
+                                4. Copy a remove function and paste it bellow.
+                                5. We will remove this pagination 'woocommerce_pagination - 10' under 'woocommerce_after_shop_loop' and the 3rd perameter is 10 which is priority.
+                                6. Reload Shop Page. See there is no paginaation at the bottom.
+                        32. Place our pagination at the bottom.
+                                1. Copy our pagination function '<?php flipmart_pagination(); ?>' code from the class="col-md-3" and paste it after do_action('woocommerce_after_shop_loop');
+                                2.Reload Shop Page. See our custom pagination is there.
+
 124. 
 125. 
 126. 
