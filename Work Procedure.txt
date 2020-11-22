@@ -477,6 +477,33 @@ Design Shop/Category Page
                                         font-weight: normal;
                                 }
 
+===================================================================================
+TILL NOW WHAT WE MADE (PHP FILES)
+======================================
+index.php, functions.php, heade.php, footer.php, page.php, style.css
+left-sidebar.php, right-sidebar.php, sidebar.php
+
+=> index.php                    (General front-page/first page)
+        => left-sidebar.php     (index page's left side menu/bar)
+        
+=> function.php                 (Contains all of the functionality)
+=> header.php                   (Header - common/master layout)
+=> footer.php                   (Footer - common/master layout)
+=> page.php                     (For Blog's list page)
+        => right-sidebar.php    (Blog list page's sidebar)
+
+=> style.css                    (Style for project)
+=> woocommerce                  (E-Commerce framework)
+        => sidebar.php          (Category/Shop page's sidebar - archive-product.php)
+
+What we missed from previous project (Wordpress-CustomHtmlAsTheme):
+======================================================================
+=> single.php                   (Single blog)
+=> front-page.php               (index.php - we created), 
+=> archive.php                  (archive-product.php - woocommerce created), 
+=> search.php                   (Search anything)
+=> 404.php                      (Not Found Page)
+===================================================================================
 
 114. 
 115. 
