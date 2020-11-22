@@ -6,3 +6,61 @@ Author: F R Summit
 Author URI: https://frsummit.github.io/
 Description: F R Summit
 */
+
+.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
+    color: #FFFFFF;
+    background-color: #59b210;
+}
+
+.woocommerce a.added_to_cart {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #FFFFFF;
+    white-space: nowrap;
+    background: #F1C40F;
+    width: 120px;
+    padding: 5px 10px 6px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.woocommerce ul.products li.product h2.woocommerce-loop-product__title {
+    color: #555;
+    font-size: 15px;
+}
+
+.woocommerce .star-rating span {
+    color: #FFC808;
+}
+
+.woocommerce ul.products li.product .price {
+    width: 250px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* .woocommerce ul.products li.product .price del {
+    display: inline-block;
+    float: right;
+    width: 75%;
+    color: #d3d3d3;
+    opacity: 1;
+    font-weight: normal;
+}
+
+.woocommerce ul.products li.product .price ins {
+    text-decoration: none;
+} */
+.woocommerce ul.products li.product .price ins {
+        text-decoration: none;
+        float: left;
+        margin-right: 10px;
+}
+.woocommerce ul.products li.product .price del {
+        display: inline-block;
+        color: #d3d3d3;
+        opacity: 1;
+        font-weight: normal;
+}

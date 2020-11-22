@@ -301,7 +301,183 @@ Design Shop/Category Page
 110. Create sidebar.php inside our theme. Reload Shop page. No error there.
 111. Open archive-product.php and select code for sidebar. It starts by class="col-md-3 sidebar" and finish before class="col-md-9". Move this code to sidebar and reload SHop page. We can see the sidebar is not present in the left side. It is bellow of the container.
 112. Now go to archive-product.php. Search for sidebar code. [do_action('woocommerce_sidebar');?>] Move this function to that place, from where we moved our sidebar html code. Paste it with php start and end tag. Ex: <?php do_action('woocommerce_sidebar');?> ?>. Now Reload Shop page. See there design is fixed. This time Shop page's left sidebar comes from sidebar.php.
-113. 
+113. Now let's design the product in the Shop/Category page.
+                3 Products Per Row
+                =========================
+                        1. Open Category.html (default/flipmart template) in a new tab.
+                        2. Notice that, there are 3 products in a single row but in our wordpress's Shop page's has 4 products in a single row. So we need to modify this that can show 3 products in a single row.
+                        3. Seaarch google for 'woocommerce product per row'. Now visit 'Change number of products per row - Woocommerce Docs'. Here you can find how to use custom theme, short code etc. We will use custom theme.
+                        4. Copy the custom theme code. Bellow code - 
+                                add_filter('loop_shop_columns', 'loop_columns', 999);
+                                if (!function_exists('loop_columns')) {
+                                        function loop_columns() {
+                                                return 3; // 3 products per row
+                                        }
+                                }
+                        5. Paste the code in functions.php.
+                        6. Notice, the function return 3. So we will get 3 products in a single row.
+                        7. Reload the Shop page. See? There are 3 products in a single row.
+                        8. If there need to fix any css then fix that by following bellow - 
+                                1. Inspect the product. Clicl the li. li is the product's parent.
+                                2. See there should be width at the right side style.
+                                3. Width should be 30.75%. If it is not 30.75% then make update it.
+                                4. Now you can see the style is fixed in your web page.
+                                5. Copy the width.
+                                6. Open theme > frskynet > style.css
+                                        .woocommerce ul.products.columns-3 li.product, .woocommerce-page ul.products.columns-3 li.product {
+                                                width: 30.75%;
+                                        }
+                                7. You can give a note/comment before that.
+                                8. Reload Shop page. See the style is fixed.
+                
+                Add To Cart - Button fixing
+                =======================================
+                        1. Go to Category.html (default/flipmart template).
+                        2. If we move our cursor over the product we can see there are 3 button come over the product. They are "ADD TO CART", "WISH LIST", "COMPARE". First we will make an "Add To Cart" button. Then we see that if we click "Add To Cart" button how it turn into a view cart.
+                        3. Go to our theme > woocommerce > loop > add-to-cart.php. The default (SHop page - no design button) "Add To Cart" button comes from this file.
+                        4. Open Category.html in a tab and editor. Search for "Add to cart" button.
+                        5. Copy the full section of button. It should be start by class="cart clearfix animate-effect".
+                                <div class="cart clearfix animate-effect">
+                                <div class="action">
+                                        <ul class="list-unstyled">
+                                        <li class="add-cart-button btn-group">
+                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"><i class="fa fa-shopping-cart"></i></button>
+                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>								
+                                        </li>
+                                        <li class="lnk wishlist">
+                                                <a class="add-to-cart" href="detail.html" title="Wishlist"><i class="icon fa fa-heart"></i></a>
+                                        </li>
+                                        <li class="lnk">
+                                                <a class="add-to-cart" href="detail.html" title="Compare"><i class="fa fa-signal"></i></a>
+                                        </li>
+                                        </ul>
+                                </div>
+                                </div>
+                        6. There are 3 button section. Remove Compare, Wishlist button section from the code.
+                                <div class="cart clearfix animate-effect">
+                                <div class="action">
+                                        <ul class="list-unstyled">
+                                        <li class="add-cart-button btn-group">
+                                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"><i class="fa fa-shopping-cart"></i></button>
+                                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>								
+                                        </li>
+                                        </ul>
+                                </div>
+                                </div>
+                        7. Now remove the buttons for Add to cart but keep the li for the "Add to cart" button.
+                                <div class="cart clearfix animate-effect">
+                                <div class="action">
+                                        <ul class="list-unstyled">
+                                        <li class="add-cart-button btn-group">							
+                                        </li>
+                                        </ul>
+                                </div>
+                                </div>
+                        8. Copy "Add to cart" default button from woocommerce > loop > add-to-cart.php
+                                <a href="%s" data-quantity="%s" class="%s" %s>%s</a>
+                        9. Paste the button code inside our li.
+                                <div class="cart clearfix animate-effect">
+                                <div class="action">
+                                        <ul class="list-unstyled">
+                                        <li class="add-cart-button btn-group">
+                                                <a href="%s" data-quantity="%s" class="%s" %s>%s</a>							
+                                        </li>
+                                        </ul>
+                                </div>
+                                </div>
+                        10. Now copy the whole code and paste it woocommerce > loop > add-to-cart.php button code (Anchore we copied from - remove anchore and paste the whole code).
+                        11. Now Reload Shop page. Move your mouse in any product. You can see the "Add To Cart" button is animating to show itself.
+                        12. We can fix the button color by css.
+                        13. Inspect the button. Click the product li (parent). Make hover active. Now click button anchore and style it.
+                                background-color: #59b210;
+                                color: #FFFFFF;
+                        14. Open style.css and paste the style here.
+                                .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
+                                        color: #FFFFFF;
+                                        background-color: #59b210;
+                                }
+                        15. Reload Shop Page. See the button get the style.
+
+                View Cart - Button
+                =========================================
+                        1. Click "Add To Cart" button. You can see the View Cart button at the right. It should be rlaced "Add To Cart" to "View Cart" and change color. Let's fix it.
+                        2. Active hover effect for li (product's parent) from inspect element and click "View Cart" button. Style bellow - 
+                                .woocommerce a.added_to_cart {
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+                                        color: #FFFFFF;
+                                        white-space: nowrap;
+                                        background: #F1C40F;
+                                        width: 120px;
+                                        padding: 5px 10px 6px;
+                                        font-weight: bold;
+                                        text-align: center;
+                                        border-radius: 5px;
+                                }
+                        3. Copy the style and paste it to style.css
+                        4. Reload Shop Page. Click "Add To Cart" button. This time it turn into yellow "View Cart" button.
+                        5. Click "View Cart" button. It will take you View Cart page.
+
+                Title Color
+                ============================
+                        1. Inspect the title and gice a color: #555;
+                        2. Copy title (h2) selector and paste it to style.css with color. Bellow style -
+                                .woocommerce ul.products li.product h2.woocommerce-loop-product__title {
+                                        color: #555;
+                                        font-size: 15px;
+                                }
+                        3. Reload Shop Page. See the changes.
+
+                Review/Rate
+                =============================
+                        1. Add to style bellow - 
+                                .woocommerce .star-rating span {
+                                        color: #FFC808;
+                                }
+                        2. Reload Shop Page. See the changes.
+                
+                Sell/Regular Price
+                ==============================
+                        1. In category.html both of the price are in a same line.
+                        2. We need to give a width for price section in our theme.
+                        3. Copy bellow code and paste to style.css - 
+                                .woocommerce ul.products li.product .price {
+                                        width: 250px;
+                                        font-size: 14px;
+                                        font-weight: 700;
+                                        color: #333;
+                                }
+                        4. Reload Shop Page. See the changes.
+                        5. For regular price - 
+                                .woocommerce ul.products li.product .price del {
+                                        display: inline-block;
+                                        float: right;
+                                        width: 75%;
+                                        color: #d3d3d3;
+                                        opacity: 1;
+                                        font-weight: normal;
+                                }
+                        6. Reload Shop Page. See the changes.
+                        7. Sell price - 
+                                .woocommerce ul.products li.product .price ins {
+                                        text-decoration: none;
+                                }
+                        8. Reload Shop Page. See the changes.
+                        9. For my template I just modify some changes as bellow - 
+                                .woocommerce ul.products li.product .price ins {
+                                        text-decoration: none;
+                                        float: left;
+                                        margin-right: 10px;
+                                }
+                                .woocommerce ul.products li.product .price del {
+                                        display: inline-block;
+                                        color: #d3d3d3;
+                                        opacity: 1;
+                                        font-weight: normal;
+                                }
+
+
 114. 
 115. 
 116. 
