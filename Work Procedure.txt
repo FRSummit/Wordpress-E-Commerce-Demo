@@ -505,16 +505,137 @@ What we missed from previous project (Wordpress-CustomHtmlAsTheme):
 => 404.php                      (Not Found Page)
 ===================================================================================
 
+Change "Add To Cart" button text
+=================================
+114. Google "woocommerce add to cart button text change" and follow Woocommerce Docs - "Change add to cart button text - WooCommerce Docs"
+115. Here we can see how to change text in single product, product archive etc.
+116. Copy bellow code and paste it to functions.php
+                add_filter( 'woocommerce_product_add_to_cart_text', 'custom_woocommerce_product_add_to_cart_text' );
+
+                function custom_woocommerce_product_add_to_cart_text() {
+                    global $product;
+
+                    $product_type = $product->get_type();
+
+                    switch ( $product_type ) {
+                        case 'external':
+                            return __( 'Buy product', 'woocommerce' );
+                            break;
+                        case 'grouped':
+                            return __( 'View product', 'woocommerce' );
+                            break;
+                        case 'simple':
+                            return __( 'Add to cart', 'woocommerce' );
+                            break;
+                        case 'variable':
+                            return __( 'Select option', 'woocommerce' );
+                            break;
+                        default:
+                            return __( 'Read more', 'woocommerce' );
+                    }   
+                }
+117. Reload Shop page. YOu can see the changes when you mouse over any product.
+
 Dynamic Breadcrumb, pagination
 =================================
-114. 
-115. 
-116. 
-117. 
-118. 
-119. 
-120. 
-121. 
+118. To dynamic breadcrumb follow bellow steps - 
+                1. Go to archive-product.php, see the breadcrumb is static.
+                        <div class="breadcrumb">
+                            <div class="container">
+                                <div class="breadcrumb-inner">
+                                    <ul class="list-inline list-unstyled">
+                                        <li><a href="#">Home</a></li>
+                                        <li class='active'>Handbags</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                2. Remove ul -
+                        <div class="breadcrumb">
+                            <div class="container">
+                                <div class="breadcrumb-inner">
+                                </div>
+                            </div>
+                        </div>
+                3. Replace ul by <?php woocommerce_breadcrumb(); ?> function -
+                        <div class="breadcrumb">
+                            <div class="container">
+                                <div class="breadcrumb-inner">
+                                    <?php woocommerce_breadcrumb(); ?>
+                                </div>
+                            </div>
+                        </div>
+                4. Reload Shop page and see the breadcrumb is now dynamic.
+                5. Problem is category.html page's breadcrumb start using ul,li but our breadcrumb starts by nav tag.
+                6. You can fix style by css for nav or search google by "woocommerce breadcrumb". Follow the woocommerce docs and then use "CHange all the things" from documentation.
+                7. Copy that code and paste it to functions.php - 
+                        add_filter('woocommerce_breadcrumb_defaults', 'frskynet_woocommerce_breadcrumbs');
+                        function frskynet_woocommerce_breadcrumbs() {
+                            return array(
+                                'delimiter' => ' &#47; ',
+                                'wrap_before' => '<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">',
+                                'wrap_after' => '</nav>',
+                                'before' => '',
+                                'after' => '',
+                                'home' => _x('Home', 'breadcrumb', 'woocommerce'),
+                            );
+                        }
+                8. Function name must be unique.
+                9. Notice, the breadcrumb starts by nav tag.
+                10. Now modify this by our category.html design. Replace '<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">' by '<div class="breadcrumb-inner"><ul class="list-inline list-unstyled">' in function.
+                        function frskynet_woocommerce_breadcrumbs() {
+                            return array(
+                                'delimiter' => ' &#47; ',
+                                'wrap_before' => '<div class="breadcrumb-inner">
+                                                        <ul class="list-inline list-unstyled">',
+                                'wrap_after' => '</ul>
+                                                </div>',
+                                'before' => '',
+                                'after' => '',
+                                'home' => _x('Home', 'breadcrumb', 'woocommerce'),
+                            );
+                        }
+                11. Remove div [class="breadcrumb-inner"] from archive-product.php.
+                12. Reload Shop page and see the breadcrumb looks like default template (category.html) html code structure.
+                13. We can change Home text if we modify last return perameter of that function's first variable "Home".
+                14. We can also change the '/' of breadcrumb separator by modifying delimiter of the function. Use '-' for testing or you can use anything.
+
+119. Remove breadcrumb from top of the products category section.
+                1. Go to the last woocommerce documentation for breadcrumb and follow the 'Remove the breadcrumbs'. Copy remove breadcrumb function and paste it to functions.php
+                        add_action( 'init', 'frskynet_remove_wc_breadcrumbs' );
+                        function frskynet_remove_wc_breadcrumbs() {
+                                remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+                        }
+                2. Function name must be unique.
+                3. Now google 'woocommerce shop page vitual layout' and visit 'https://www.businessbloomer.com/woocommerce-visual-hook-guide-archiveshopcat-page/'
+                4. Copy 'woocommerce_before_main_content' from function and search it in that page.
+                5. Notice the first result. We need to remove this.
+                6. Now go to archive-product.php and search for 'woocommerce_before_main_content'. Here we can see there are 2 items. They are 'woocommerce_breadcrumb - 20' and 'woocommerce_output_content_wrapper - 10' (in the comment).
+                7. We want to remove 'woocommerce_breadcrumb - 20'.
+                8. Notice 
+                        remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+                        Here it says that we are going to remove 'woocommerce_breadcrumb - 20'. The 3rd and 4th perameter is the position and priority (before/after).
+                9. Reload Shop page. We can see the breadcrumb is gone for that section.
+
+120. Remove Title from top of the products category section. (Shop)
+                1. Open archive-product.php and notice the header.
+                        <?php if (apply_filters('woocommerce_show_page_title', true)): ?>
+                2. apply_filters() function's 2nd perameter is true. 
+                3. Make it false and Reload the Shop page. You can see the changes.
+121. Remove 'Showing Result' from top of the products category section. (Shop)
+                1. visit 'https://www.businessbloomer.com/woocommerce-visual-hook-guide-archiveshopcat-page/'
+                2. Notice the hook before the Showing result. (3rd one) [woocommerce_before_shop_loop]
+                3. Search 'woocommerce_before_shop_loop' in archive-product.php
+                4.  Here we can see there are 3 items. The last 2 items are 'woocommerce_result_count - 20' and 'woocommerce_catalog_ordering - 30' (in the comment).
+                5. But we have only 'woocommerce_catalog_ordering - 30' in category.html but 'woocommerce_result_count - 20' is not there.
+                6. Copy the last function and modify libe bellow
+                        add_action( 'init', 'frskynet_remove_woocommerce_result_count' );
+                        function frskynet_remove_woocommerce_result_count() {
+                                remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20, 0 );
+                        }
+                7. Paste it to functions.php
+                8. Reload the Shop page. See the changes.
+
 122. 
 123. 
 124. 
