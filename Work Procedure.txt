@@ -2,7 +2,7 @@ WORDPRESS E-COMMERCE TUTORIAL & WORK PROCEDURE STEP BY STEP
 ===================================================================
 
 Step 1: Default Site create
-==============================
+=====================================
 1. Download latest wordpress - you will get a zip/rar file
 2. Move rar file to xampp > htdocs and extract it there. Change the extract folder name as your project name.
 3. Go to browser and open 'http://localhost:8080/phpmyadmin' and create a new database for your project.
@@ -21,7 +21,7 @@ Step 1: Default Site create
 16. If we notice out database we can see there are 12 table created when we install wordpress. They are frs_commentmeta, frs_comments, frs_links, frs_options, frs_postmeta, frs_posts, frs_termmeta, frs_terms, frs_term_relationships, frs_term_taxonomy, frs_usermeta, frs_users.
 
 Step 2: Custom Theme Development
-=================================
+=====================================
 17. Open our project file to VS Code editor.
 18. Open wp-content folder. Here we can see plugins, theme, uploads folder and index.php file.
                 wp-content: The wp-content folder is an integral part of any WordPress installation, which is why you find it in the main directory of any site built with the WordPress platform. It houses any content provided by users that is not saved in the database. That includes plugins, themes and uploaded media.
@@ -47,7 +47,7 @@ Step 2: Custom Theme Development
                 */
 
 Theme Image setup
-====================================
+=====================================
 25. Now open browser and go to Appearance > Theme. We can see our theme is there but there is no profile/cover image. To create our theme image follow bellow steps.
                 1. Select your theme image and open it in paint or photoshop.
                 2. Resize that image as 1200x900 (width x height).
@@ -59,13 +59,13 @@ Theme Image setup
 27. Now reload our site. You can see nothing as we hadn't added any code in our theme index.php file.
 
 Adding code in index.php [We will use flipmart html template for this development tutorial]
-=====================================
+=============================================================================================
 28. Download flipmart template and extract it.
 29. Copy home.html code and paste it to our index.php file, copy assets folder and paste it to our theme folder.
 30. Reload site. We can see the broken page or no style page. Lets do it dynamic style.
 
 Make Dynamic index.php file
-===================================
+=====================================
 31. Open index.php file and notice the stylesheet link.
 32. Add <?php get_template_directory_uri(); ?> before href url assets/..... . It should be echo. So modify that as <?php echo get_template_directory_uri(); ?>
                 Ex:
@@ -80,7 +80,7 @@ Make Dynamic index.php file
 36. Actually what we have done till now, it is not a proper way or right way. We just want to see our page and test that everythins works properly. This is why we use get_template_directory() function. If we want to make all this thing in a proper way we have to call all of this (css, js) from our functions.php page which we haven't created. From next we will do that.
 
 Dynamic properly
-=========================================
+=====================================
 37. Open twentyseventeen > header.php and copy html start tag code and paste it to out index.html > html tag
                 Ex: 
                         before add : <html lang="en">
@@ -93,7 +93,7 @@ Dynamic properly
 40. Remove next 4 lines of meta (description, author, keywords, robots). These will dynamic automatically from wordpress.
 
 Dynamic Title tag
-===================================
+=====================================
 41. Replace text from title tag by <?php bloginfo('name'); ?>. Now reload our site. We can see the changes of title. Open admin site > Settings > General > Site Title. This is where we get our title.
 42. Now add ' | <?php bloginfo('description'); ?>' after title name function tag. Now reload the site. We can see the description also added with the title.
 43. Another way is adding add_theme_support('title-tag'); function in our functions.php file. Lets create functions.php file.
@@ -166,14 +166,14 @@ Separate Header and Footer into a separate file
 54. Now reload the site. It will load our site header and footer from header.php and footer.php dynamically.
 
 Move Left Sidebar to separate php file [Adding/Calling one .php file inside another .php file]
-=======================================================
+===============================================================================================
 55. Create a new php file and named it left-sidebar.php
 56. move sidebar content from index.php to left-sidebar.php
 57. In index.php file from where we move the sidebar code add <?php get_template_part('left-sidebar'); ?> there. This will call the left-sidebar.php.
 58. Now reload the site. It will load our left-sidebar.php dynamically inside index.php file.
 
 Creating Single page
-==================================
+=====================================
 59. Create a new php file named page.php
 60. Copy all code from blog.php from template and paste it to page.php
 61. Remove from <!Doctype html> to </header> and <footer> to </html> from page.php
@@ -219,7 +219,7 @@ Till now we just created our custom theme. From now we will work woocommerce.
 ==================================================================================
 
 Woocommerce setup
-===============================
+=====================================
 80. Download Woocommerce from 'https://wordpress.org/plugins/woocommerce/'.
 81. Go to wp-content > plugin folder and extract woocommerce in this location.
 82. Now we will follow woocommerce theme support tutorial 'https://docs.woocommerce.com/document/third-party-custom-theme-compatibility/'.
@@ -253,7 +253,7 @@ Create First Product
 92. Open Shop page by clicking view. We can see our product is there which we just created. Now we will design that page as main html page and it's detail page will look like detail.html page.
 
 Design Shop/Category Page
-==================================
+=====================================
 93. After adding a product, we can see that style is not fixed for shop page and product single/detail page.
 94. Open header.php. Notice body start tag. Remove body class and add body function as <?php body_class(); ?>. It will load woocommerce body style. 
 95. Download dummy data. Go to wp_admin > Tools > Import > Wordpress (install)
@@ -303,7 +303,7 @@ Design Shop/Category Page
 112. Now go to archive-product.php. Search for sidebar code. [do_action('woocommerce_sidebar');?>] Move this function to that place, from where we moved our sidebar html code. Paste it with php start and end tag. Ex: <?php do_action('woocommerce_sidebar');?> ?>. Now Reload Shop page. See there design is fixed. This time Shop page's left sidebar comes from sidebar.php.
 113. Now let's design the product in the Shop/Category page.
                 3 Products Per Row
-                =========================
+                ==============================
                         1. Open Category.html (default/flipmart template) in a new tab.
                         2. Notice that, there are 3 products in a single row but in our wordpress's Shop page's has 4 products in a single row. So we need to modify this that can show 3 products in a single row.
                         3. Seaarch google for 'woocommerce product per row'. Now visit 'Change number of products per row - Woocommerce Docs'. Here you can find how to use custom theme, short code etc. We will use custom theme.
@@ -331,7 +331,7 @@ Design Shop/Category Page
                                 8. Reload Shop page. See the style is fixed.
                 
                 Add To Cart - Button fixing
-                =======================================
+                ==============================
                         1. Go to Category.html (default/flipmart template).
                         2. If we move our cursor over the product we can see there are 3 button come over the product. They are "ADD TO CART", "WISH LIST", "COMPARE". First we will make an "Add To Cart" button. Then we see that if we click "Add To Cart" button how it turn into a view cart.
                         3. Go to our theme > woocommerce > loop > add-to-cart.php. The default (SHop page - no design button) "Add To Cart" button comes from this file.
@@ -399,7 +399,7 @@ Design Shop/Category Page
                         15. Reload Shop Page. See the button get the style.
 
                 View Cart - Button
-                =========================================
+                ==============================
                         1. Click "Add To Cart" button. You can see the View Cart button at the right. It should be rlaced "Add To Cart" to "View Cart" and change color. Let's fix it.
                         2. Active hover effect for li (product's parent) from inspect element and click "View Cart" button. Style bellow - 
                                 .woocommerce a.added_to_cart {
@@ -420,7 +420,7 @@ Design Shop/Category Page
                         5. Click "View Cart" button. It will take you View Cart page.
 
                 Title Color
-                ============================
+                ==============================
                         1. Inspect the title and gice a color: #555;
                         2. Copy title (h2) selector and paste it to style.css with color. Bellow style -
                                 .woocommerce ul.products li.product h2.woocommerce-loop-product__title {
@@ -430,7 +430,7 @@ Design Shop/Category Page
                         3. Reload Shop Page. See the changes.
 
                 Review/Rate
-                =============================
+                ==============================
                         1. Add to style bellow - 
                                 .woocommerce .star-rating span {
                                         color: #FFC808;
@@ -479,7 +479,7 @@ Design Shop/Category Page
 
 ===================================================================================
 TILL NOW WHAT WE MADE (PHP FILES)
-======================================
+=============================================================
 index.php, functions.php, heade.php, footer.php, page.php, style.css
 left-sidebar.php, right-sidebar.php, sidebar.php
 
@@ -505,6 +505,8 @@ What we missed from previous project (Wordpress-CustomHtmlAsTheme):
 => 404.php                      (Not Found Page)
 ===================================================================================
 
+Dynamic Breadcrumb, pagination
+=================================
 114. 
 115. 
 116. 
