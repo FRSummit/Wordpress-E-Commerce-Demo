@@ -1,2 +1,4 @@
 2020-11-22T09:23:37+00:00 CRITICAL syntax error, unexpected ';', expecting '{' in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\archive-product.php on line 83
 
+2020-11-22T10:26:59+00:00 CRITICAL syntax error, unexpected ';' in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php on line 193
+

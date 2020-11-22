@@ -79,7 +79,7 @@ if (woocommerce_product_loop()) {
     <div class="row">
         <div class="col-md-3">Col 1</div>
         <div class="col-md-3">Col 2</div>
-        <div class="col-md-3">Col 3</div>
+        <div class="col-md-3"><?php frskynet_woocommerce_catalog_page_ordering() ?></div>
         <div class="col-md-3"><?php flipmart_pagination(); ?></div>
     </div>
 	<?php
@@ -108,7 +108,7 @@ if (woocommerce_product_loop()) {
      */
     do_action('woocommerce_after_shop_loop');
     ?>
-    
+
     <?php flipmart_pagination(); ?>
 
     <?php

@@ -164,8 +164,8 @@ function flipmart_pagination()
         'total' => $wp_query->max_num_pages,
         'type' => 'array',
         'prev_next' => true,
-		'prev_text' => __( '<i class="fa fa-angle-left"></i>' ),
-		'next_text' => __( '<i class="fa fa-angle-right"></i>' ),
+        'prev_text' => __('<i class="fa fa-angle-left"></i>'),
+        'next_text' => __('<i class="fa fa-angle-right"></i>'),
     ));
     if (is_array($pages)) {
         $paged = (get_query_var('paged') == 0) ? 1 : get_query_var('paged');
@@ -176,3 +176,41 @@ function flipmart_pagination()
         echo '</ul></div>';
     }
 }
+
+// Woocommerce show product per page dropdown
+function frskynet_woocommerce_catalog_page_ordering()
+{
+    ?>
+    <form action="" method="POST" name="results">
+    <select name="woocommerce-sort-by-columns" id="woocommerce-sort-by-columns" class="sortby" onchange="this.form.submit()">
+    <?php
+    $shopCatalog_orderby = apply_filters('woocommerce_sortby_page', array(
+        '' => __('Results per page', 'woocommerce'),
+        '2' => __('2 per page', 'woocommerce'),
+        '36' => __('36 per page', 'woocommerce'),
+        '48' => __('48 per page', 'woocommerce'),
+        '64' => __('64 per page', 'woocommerce'),
+    ));
+    foreach ($shopCatalog_orderby as $sort_id => $sort_name) {
+        echo '<option value="' . $sort_id . '" ' . selected($_SESSION['sortby'], $sort_id, false) . ' >' . $sort_name . '</option>';
+    }
+    ?>
+    </select>
+    </form>
+    <?php
+}
+
+// now we set our cookie if we need to
+function dl_sort_by_page($count)
+{
+    if (isset($_COOKIE['shop_pageResults'])) { // if normal page load with cookie
+        $count = $_COOKIE['shop_pageResults'];
+    }
+    if (isset($_POST['woocommerce-sort-by-columns'])) { //if form submitted
+        setcookie('shop_pageResults', $_POST['woocommerce-sort-by-columns'], time() + 1209600, '/', 'beadsnwire.lukeseall.co.uk/', false); //this will fail if any part of page has been output- hope this works!
+        $count = $_POST['woocommerce-sort-by-columns'];
+    }
+    // else normal page load and no cookie
+    return $count;
+}   
+add_filter('loop_shop_per_page', 'dl_sort_by_page');

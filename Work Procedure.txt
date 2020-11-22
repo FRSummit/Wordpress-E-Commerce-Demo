@@ -768,6 +768,48 @@ Dynamic Breadcrumb, pagination
                         32. Place our pagination at the bottom.
                                 1. Copy our pagination function '<?php flipmart_pagination(); ?>' code from the class="col-md-3" and paste it after do_action('woocommerce_after_shop_loop');
                                 2.Reload Shop Page. See our custom pagination is there.
+                        
+                12. Show product per page - 
+                        1. Google 'woocommerce product show per page dropdown' and visit 'https://wordpress.stackexchange.com/questions/96731/woocommerce-products-per-page-dropdown' and copy bellow code -
+                                function woocommerce_catalog_page_ordering() {
+                                    ?>
+                                        <form action="" method="POST" name="results">
+                                            <select name="woocommerce-sort-by-columns" id="woocommerce-sort-by-columns" class="sortby" onchange="this.form.submit()">
+                                                <?php
+                                                $shopCatalog_orderby = apply_filters('woocommerce_sortby_page', array(
+                                                        ''   => __('Results per page', 'woocommerce'),
+                                                        '2'  => __('2 per page', 'woocommerce'),
+                                                        '36' => __('36 per page', 'woocommerce'),
+                                                        '48' => __('48 per page', 'woocommerce'),
+                                                        '64' => __('64 per page', 'woocommerce'),
+                                                ));
+                                                foreach ( $shopCatalog_orderby as $sort_id => $sort_name )
+                                                        echo '<option value="' . $sort_id . '" ' . selected( $_SESSION['sortby'], $sort_id, false ) . ' >' . $sort_name . '</option>';
+                                                ?>
+                                            </select>
+                                        </form>
+                                    <?php
+                                }
+                                function dl_sort_by_page($count) {
+                                    if (isset($_COOKIE['shop_pageResults'])) { // if normal page load with cookie
+                                    $count = $_COOKIE['shop_pageResults'];
+                                }
+                                if (isset($_POST['woocommerce-sort-by-columns'])) { //if form submitted
+                                    setcookie('shop_pageResults', $_POST['woocommerce-sort-by-columns'], time()+1209600, '/', 'beadsnwire.lukeseall.co.uk/', false); //this will fail if any part of page has been output- hope this works!
+                                    $count = $_POST['woocommerce-sort-by-columns'];
+                                }
+                                return $count;
+                                }
+                                add_filter('loop_shop_per_page','dl_sort_by_page');
+                                add_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_page_ordering', 20 );
+                        
+                        2. Reload Shop page. Result per page option is there.
+                        3. Notice the add_function()
+                                add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_page_ordering', 20);
+                        4. This means 'woocommerce_catalog_page_ordering' is added under the 'woocommerce_before_shop_loop'.
+                        5. Remove add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_page_ordering', 20);
+                        6. Rename the function as frskynet_woocommerce_catalog_page_ordering() and add the function inside class="col-md-3" in archive-product.php (3rd one).
+                        7. 
 
 124. 
 125. 
