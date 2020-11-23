@@ -314,3 +314,19 @@ function frskynet_remove_gridlist_plugin_option()
     remove_action('woocommerce_before_shop_loop', array($WC_List_Grid, 'gridlist_toggle_button'), 30);
 }
 add_action('woocommerce_archive_description', 'frskynet_remove_gridlist_plugin_option');
+
+/**
+ * Sidebar Register
+ */
+add_action('widgets_init', 'theme_slug_widgets_init');
+function theme_slug_widgets_init() {
+    register_sidebar( array(
+        'name'         => __('Left Sidebar', 'flipmart'),
+        'id'           => 'left_sidebar',
+        'description'  => __('widgets  in this area  will be shown on  all posts and pages', 'flipmart'),
+        'before_widget'=> __('<div class="sidebar-widget wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">'),
+        'after_widget' => __('</div>'),
+        'before_title' => __('<h3 class="section-title">'),
+        'after_title'  => __('</h3>'),
+    ) );
+}

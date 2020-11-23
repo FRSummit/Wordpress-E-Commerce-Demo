@@ -1044,9 +1044,64 @@ Dynamic Sidebar
                 1. Notice that, at first we have CATEGORIES (sidebar first text). We will dynamic this later when we make dynamic our menus. At this time we register our sidebar and put some default widgets.
                 2. Open our theme > sidebar.php. See the menu part which class start by class="side-menu animate-dropdown outer-bottom-xs" and end before class="sidebar-module-container". Remove the whole menu section. We can dynamic this part by widget.
                 3. Then notice the repeated part. class="sidebar-widget wow fadeInUp animated" is repeated again and again.
-                4. Google 'wp sidebar register' and visit ' 
+                4. Google 'wp sidebar register' and visit 'https://codex.wordpress.org/Sidebars' 
+                5. Copy bellow code and paste it to functions.php - 
+                        add_action('widgets_init', 'theme_slug_widgets_init');
+                        function theme_slug_widgets_init() {
+                            register_sidebar( array(
+                                'name'         => __('Main Sidebar', 'theme-slug'),
+                                'id'           => 'sidebar-1',
+                                'description'  => __('widgets  in this area  will be shown on  all posts and pages', 'theme-slug'),
+                                'before_widget'=> __('<li id="%1$s" class="widget %2$s">'),
+                                'after_widget' => __('</li>'),
+                                'before_title' => __('<h2 class=""widgettitle>'),
+                                'after_title'  => __('</h2>'),
+                            ) );
+                        }
+                6. Modify as bellow - 
+                        add_action('widgets_init', 'theme_slug_widgets_init');
+                        function theme_slug_widgets_init() {
+                            register_sidebar( array(
+                                'name'         => __('Left Sidebar', 'theme-slug'),
+                                'id'           => 'left_sidebar',
+                                'description'  => __('widgets  in this area  will be shown on  all posts and pages', 'theme-slug'),
+                                'before_widget'=> __('<div class="sidebar-widget wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">'),
+                                'after_widget' => __('</div>'),
+                                'before_title' => __('<h3 class="section-title">'),
+                                'after_title'  => __('</h3>'),
+                            ) );
+                        }
+                7. Here name, id is the sidebar name and id. Description is as your wish. 
+                        'before_widget' -> It is the repeated part start divition (div)
+                        'after_widget'  -> It is the repeated part end divition (div)
+                        'before_title'  -> Sidebar title start tag
+                        'after_title'   -> Sidebar title end tag
+                8. Now remove all of the repeated code from sidebar.php inside class="sidebar-filter". Now we will get almost blank file. It (sidebar.php) looks like - 
+                        <div class="col-md-3 sidebar">
+                            <div class="sidebar-module-container">
+                                <div class="sidebar-filter">
+                                </div>
+                            </div>
+                        </div>
+                9. Add dynamic sidebar id (left_sidebar) inside class="sidebar-filter by using <?php dynamic_sidebar(); ?> - 
+                        <div class="col-md-3 sidebar">
+                            <div class="sidebar-module-container">
+                                <div class="sidebar-filter">
+                                    <?php dynamic_sidebar('left_sidebar'); ?>
+                                </div>
+                            </div>
+                        </div>
+                10. Change theme-slag by Text Domain (flipmart).
+                11. Reload wp_admin and you can see the Widgets option inside Appearence. Before that it was not there.
+                12. Go to wp_admin > Appearance > Widgets and add some widgets there - 
+                        1. Products
+                        2. Recent Product Review.
+                13. Reload Shop page. 
 
-125. 
+125. Price Slider
+                1. In category.html there is a sidebar section named "Price Slider'. If we want to make it dynamic as widget then we have a free plugin.
+                2. Google 'wc ajax product filter' then visit 'https://wordpress.org/plugins/wc-ajax-product-filter/'
+                3. We can use this plugin to dynamic price slider.
 126. 
 127. 
 128. 
