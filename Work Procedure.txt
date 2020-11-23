@@ -1102,21 +1102,65 @@ Dynamic Sidebar
                 1. In category.html there is a sidebar section named "Price Slider'. If we want to make it dynamic as widget then we have a free plugin.
                 2. Google 'wc ajax product filter' then visit 'https://wordpress.org/plugins/wc-ajax-product-filter/'
                 3. We can use this plugin to dynamic price slider.
-126. 
-127. 
-128. 
-129. 
-130. 
-131. 
-132. 
-133. 
-134. 
-135. 
-136. 
-137. 
-138. 
-139. 
-140. 
+
+Single Product Page Dynamic
+===============================
+126. Open detail.html from default template in an editor.
+127. From our Shop page, click any product to visit single product or product detail page. We need to design this page.
+128. Before this design open wp-content > plugins > woocommerce > template in a tab and open wp-content > theme > frskynet > woocommerce in another tab.
+129. We can see the same files are there in both follow. We copied wp-content > plugins > woocommerce > template folder and pasted wp-content > theme > frskynet and renamed it as woocommerce. Because we need to make our theme > woocommerce files updateable/editable and make this priority high than plugin. So if there need to update plugins our design never get broken.
+130. Now go to wp_admin > Woocommerce > System Status. Notice the bottom site 'Templates' which says Override(WooCommerce). 
+131. Here we can see status of those files which were overriden woocommerce plugin. That means we had overriden all of the template files. But we won't need to override all of those because we will modified some files instead of all of those files.
+132. So we will keep those files which we want to modify and delete the rest of the files.
+133. We can do this override by child theme. (See the upper section)
+134. So we are going to delete those files which we haven't touched or modified. We only worked in archive-product.php and loop folder > add-to-cart.php files.
+135. Keeping these 2 files delete all of those files from our theme > woocommerce.
+136. Now check our site. It should works properly.
+137. Now go to wp_admin > Woocommerce > System Status. Now it says that we overriden only 2 files. It is not a good idea to override all of the files from plugin and sometimes you have to update woocommerce. Then you need to fix lots of bugs.
+138. Lets design our single product page.
+139. Now open wp-content > plugins > woocommerce > template. There is a file named single-product.php. Copy this and paste it to our theme > woocommerce. Open it in editor and see the construction.
+140. Design 
+                1. Open theme > woocommerce > archive-product.php and copy the breadcrumb section with container row section - 
+                        <div class="breadcrumb">
+                            <div class="container">
+                                <?php woocommerce_breadcrumb(); ?>
+                            </div>
+                        </div>
+                        <div class="body-content outer-top-xs">
+	                    <div class='container'>
+		                <div class='row'>
+                2. Paste it theme > woocommerce > single-product.php after the get_header() function.
+                3. Move woocommerce sidebar from the bottom of single-product.php and place it after row container we pasted last.
+                        <?php
+                                /**
+                                * woocommerce_sidebar hook.
+                                *
+                                * @hooked woocommerce_get_sidebar - 10
+                                */
+                                do_action( 'woocommerce_sidebar' );
+                        ?>
+                4. After sidebar paste bellow code. It comes from archive-product.php
+		        <div class='col-md-9'>
+			    <div class="clearfix filters-container m-t-10">
+                5. Now close those divition (div) before get_footer() function as archive-product.php. There are 5 divitions (div)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                6. Reload Single page. See ? Our layout os fixed.
+                7. Add 'single-product' class with row class.
+                8. Fix some style - 
+                        .woocommerce #content div.product div.images, .woocommerce div.product div.images, .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images {
+                                width: 38%;
+                        }
+                        .woocommerce #content div.product div.summary, .woocommerce div.product div.summary, .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
+                                width: 58%;
+                        }
+                        #woocommerce div.product div.images img {
+                                border: 1px solid #ddd;
+                        }
+                        
 141. 
 142. 
 143. 

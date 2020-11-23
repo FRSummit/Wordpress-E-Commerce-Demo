@@ -99,3 +99,15 @@ span.dashicons.dashicons-list-view {
 .gridlist-toggle .dashicons:before, .gridlist-toggle .dashicons {
     font-size: 18px;
 }
+a#grid {
+    cursor: pointer;
+}
+.woocommerce #content div.product div.images, .woocommerce div.product div.images, .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images {
+    width: 38%;
+}
+.woocommerce #content div.product div.summary, .woocommerce div.product div.summary, .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
+    width: 58%;
+}
+#woocommerce div.product div.images img {
+    border: 1px solid #ddd;
+}
