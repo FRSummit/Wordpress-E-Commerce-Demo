@@ -92,7 +92,10 @@ select.orderby {
     font-size: 13px;
     border: 1px solid #e5e5e5;
 }
-span.dashicons.dashicons-grid-view,
+/* span.dashicons.dashicons-grid-view,
 span.dashicons.dashicons-list-view {
+    font-size: 18px;
+} */
+.gridlist-toggle .dashicons:before, .gridlist-toggle .dashicons {
     font-size: 18px;
 }

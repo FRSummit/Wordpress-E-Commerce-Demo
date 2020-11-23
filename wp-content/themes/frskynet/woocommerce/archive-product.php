@@ -78,18 +78,28 @@ if (woocommerce_product_loop()) {
     <!-- <h1>Hello from our theme template</h1> -->
     <div class="row">
         <div class="col-md-2">
-            <nav class="phoen_gridlist_toggle">
+            <!-- <nav class="phoen_gridlist_toggle">
                 <a href="javascript:void(0);" id="phoen_grid" class="phoen_grid" title="Grid view"><span class="dashicons dashicons-grid-view"></span></a>
                 <a href="javascript:void(0);" id="phoen_list" class="phoen_list active" title="List view"><span class="dashicons dashicons-exerpt-view"></span></a>
-            </nav>
-            <!-- <ul id="filter-tabs" class="phoen_gridlist_toggle nav nav-tabs nav-tab-box nav-tab-fa-icon">
+            </nav> -->
+            <!-- <nav class="gridlist-toggle">
+                <a href="#" id="grid" title="Grid view" class="active">
+                    <span class="dashicons dashicons-grid-view"></span>
+                    <em>Grid view</em>
+                </a>
+                <a href="#" id="list" title="List view">
+                    <span class="dashicons dashicons-exerpt-view"></span>
+                    <em>List view</em>
+                </a>
+            </nav> -->
+            <ul id="filter-tabs" class="phoen_gridlist_toggle nav nav-tabs nav-tab-box nav-tab-fa-icon">
                 <li class="active">
-                    <a href="javascript:void(0);" id="phoen_grid" class="phoen_grid" title="Grid view"><i class="icon fa fa-th-large"></i>Grid</a>
+                    <a href="#" id="grid" title="Grid view"><i class="icon fa fa-th-large"></i>Grid</a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);" id="phoen_list" class="phoen_list active" title="List view"><i class="icon fa fa-th-list"></i>List</a>
+                <li class="">
+                    <a href="#" id="list" title="List view"><i class="icon fa fa-th-list"></i>List</a>
                 </li>
-            </ul> -->
+            </ul>
         </div>
         <div class="col-md-4">
             <div class="lbl-cnt">

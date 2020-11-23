@@ -294,8 +294,23 @@ function frskynet_custom_woocommerce_catalog_orderby($sortby)
 /**
  * Remove default grid-list plugin option
  */
-add_action('init', 'frskynet_remove_gridlist_plugin_option');
+// 1st link plugin
+// add_action('init', 'frskynet_remove_gridlist_plugin_option');
+// function frskynet_remove_gridlist_plugin_option()
+// {
+//     remove_action('woocommerce_before_shop_loop', 'phoen_grid_list_toggle_button', 35, 0);
+// }
+
+// 2nd link plugin - will not work - if not work follow next function
+// add_action('init', 'frskynet_remove_gridlist_plugin_option');
+// function frskynet_remove_gridlist_plugin_option()
+// {
+//     remove_action('woocommerce_before_shop_loop', 'gridlist_toggle_button', 30, 0);
+// }
+
 function frskynet_remove_gridlist_plugin_option()
 {
-    remove_action('woocommerce_before_shop_loop', 'phoen_grid_list_toggle_button', 35, 0);
+    global $WC_List_Grid;
+    remove_action('woocommerce_before_shop_loop', array($WC_List_Grid, 'gridlist_toggle_button'), 30);
 }
+add_action('woocommerce_archive_description', 'frskynet_remove_gridlist_plugin_option');
