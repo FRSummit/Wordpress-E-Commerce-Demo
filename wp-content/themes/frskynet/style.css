@@ -5,6 +5,7 @@ Version: 1.0
 Author: F R Summit
 Author URI: https://frsummit.github.io/
 Description: F R Summit
+Text Domain: flipmart
 */
 
 .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
@@ -81,4 +82,13 @@ Description: F R Summit
 .pagination-container ul li:hover a.next.page-numbers,
 .pagination-container ul li:hover a.prev.page-numbers {
     background: #333;
+}
+select#woocommerce-sort-by-columns {
+    padding: 4px 12px;
+    border: 1px solid #ddd;
+}
+select.orderby {
+    padding: 4px 12px;
+    font-size: 13px;
+    border: 1px solid #e5e5e5;
 }

@@ -1,0 +1,31 @@
+2020-11-23T03:33:14+00:00 CRITICAL Uncaught Error: Call to undefined function frskynet_woocommerce_catalog_page_ordering() in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\archive-product.php:82
+Stack trace:
+#0 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\wordpress-ecommerce\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wordpress-ecommerce\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\archive-product.php on line 82
+
+2020-11-23T03:43:29+00:00 CRITICAL syntax error, unexpected end of file in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php on line 229
+
+2020-11-23T03:45:29+00:00 CRITICAL syntax error, unexpected end of file in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php on line 231
+
+2020-11-23T04:19:15+00:00 CRITICAL Uncaught Error: Function name must be a string in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php:259
+Stack trace:
+#0 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-hook.php(287): dl_sort_by_page(12)
+#1 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\plugin.php(206): WP_Hook->apply_filters(12, Array)
+#2 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\class-wc-query.php(484): apply_filters('loop_shop_per_p...', 12)
+#3 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\class-wc-query.php(370): WC_Query->product_query(Object(WP_Query))
+#4 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-hook.php(287): WC_Query->pre_get_posts(Object(WP_Query))
+#5 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#6 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\plugin.php(544): WP_Hook->do_action(Array)
+#7 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-query.php(177 in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php on line 259
+
+2020-11-23T05:33:11+00:00 CRITICAL Uncaught Error: Call to undefined function frskynet_woocommerce_catalog_ordering() in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\archive-product.php:81
+Stack trace:
+#0 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\template-loader.php(106): include()
+#1 C:\xampp\htdocs\wordpress-ecommerce\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\wordpress-ecommerce\index.php(17): require('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\archive-product.php on line 81
+

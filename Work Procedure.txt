@@ -44,6 +44,7 @@ Step 2: Custom Theme Development
                         Author: F R Summit
                         Author URI: https://frsummit.github.io/
                         Description: F R Summit
+                        Text Domain: flipmart
                 */
 
 Theme Image setup
@@ -770,47 +771,182 @@ Dynamic Breadcrumb, pagination
                                 2.Reload Shop Page. See our custom pagination is there.
                         
                 12. Show product per page - 
-                        1. Google 'woocommerce product show per page dropdown' and visit 'https://wordpress.stackexchange.com/questions/96731/woocommerce-products-per-page-dropdown' and copy bellow code -
+                        1. Google 'woocommerce product show per page dropdown' and visit 'https://wordpress.stackexchange.com/questions/96731/woocommerce-products-per-page-dropdown' or copy bellow code -
+                                remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
                                 function woocommerce_catalog_page_ordering() {
-                                    ?>
-                                        <form action="" method="POST" name="results">
-                                            <select name="woocommerce-sort-by-columns" id="woocommerce-sort-by-columns" class="sortby" onchange="this.form.submit()">
-                                                <?php
-                                                $shopCatalog_orderby = apply_filters('woocommerce_sortby_page', array(
-                                                        ''   => __('Results per page', 'woocommerce'),
-                                                        '2'  => __('2 per page', 'woocommerce'),
-                                                        '36' => __('36 per page', 'woocommerce'),
-                                                        '48' => __('48 per page', 'woocommerce'),
-                                                        '64' => __('64 per page', 'woocommerce'),
-                                                ));
-                                                foreach ( $shopCatalog_orderby as $sort_id => $sort_name )
-                                                        echo '<option value="' . $sort_id . '" ' . selected( $_SESSION['sortby'], $sort_id, false ) . ' >' . $sort_name . '</option>';
-                                                ?>
-                                            </select>
-                                        </form>
-                                    <?php
+                                ?>
+                                <?php echo '<span class="itemsorder">Items Per Page:'?>
+                                <form action="" method="POST" name="results" class="woocommerce-ordering">
+                                        <select name="woocommerce-sort-by-columns" id="woocommerce-sort-by-columns" class="sortby" onchange="this.form.submit()">
+                                        <?php 
+                                        // Get product on page reload
+                                        if( isset($_POST['woocommerce-sort-by-columns']) && (($_COOKIE['shop_pageResults']<> $_POST['woocommerce-sort-by-columns'])) ) {
+                                        $numberOfProductPerPage = $_POST['woocommerce-sort-by-columns'];
+                                        } else {
+                                        $numberOfProductPerPage = $_POST['shop_pageResults'];
+                                        }
+
+                                        // This is where you can change the amount per page that the user will use feel free to change the number of products
+                                        $shopCatalog_orderby = apply_filters('woocommerce_sortby_page', array(
+                                        // Add as many of these as you want to, -1 shows all products per page
+                                        // '' => __('Result per page', 'woocommerce'),
+                                        '20' => __('20', 'woocommerce'),
+                                        '-1' => __('All', 'woocommerce'),
+                                        ));
+                                        foreach( $shopCatalog_orderby as $shop_id => $sort_name )
+                                        echo '<option value="' . $sort_id . '" ' . selected( $numberOfProductsPerPage, $sort_id, true) . ' >' . $sort_name . '</option>';
+                                        ?>
+                                        </select>
+                                </form>
+                                <?php echo '</span>' ?>
+                                <?php    
                                 }
+
+                                // Now we set our cookie of we need to
                                 function dl_sort_by_page($count) {
-                                    if (isset($_COOKIE['shop_pageResults'])) { // if normal page load with cookie
-                                    $count = $_COOKIE['shop_pageResults'];
+                                if( $isset($_COOKIE['shop_pageResults']) ) { // if normal page load with cookie
+                                        $count = $_COOKIE['shop_pageResults'];
                                 }
-                                if (isset($_POST['woocommerce-sort-by-columns'])) { //if form submitted
-                                    setcookie('shop_pageResults', $_POST['woocommerce-sort-by-columns'], time()+1209600, '/', 'beadsnwire.lukeseall.co.uk/', false); //this will fail if any part of page has been output- hope this works!
-                                    $count = $_POST['woocommerce-sort-by-columns'];
+                                if($isset( $_POST['woocommerce-sort-by-columns'])) { //if form submitted
+                                        setcookie('shop_pageResults', $_POST['woocommerce-sort-by-columns'], time()+1209600, '/', 'www.your-domain-goes-here.com', false);
+                                        $count = $_POST['woocommerce-sort-by-columns'];
                                 }
+                                // else normal page load and no cookie
                                 return $count;
                                 }
-                                add_filter('loop_shop_per_page','dl_sort_by_page');
-                                add_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_page_ordering', 20 );
+                                add_filter('loop_shop_per_page', 'dl_sort_by_page');
+                                add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_page_ordering', 20);
+
                         
-                        2. Reload Shop page. Result per page option is there.
-                        3. Notice the add_function()
+                        2. Paste this code in functions.php and reload Shop page. We can see there there is a option show per page placed over the row. But now we want to set this showing result inside 3rd column of pagination row.
+                                before: <div class="col-md-3">Col 3</div>
+                                after : <div class="col-md-3"><?php frskynet_woocommerce_catalog_page_ordering(); ?></div>
+                        3. Notice the add_action() - last line of the code we paste
                                 add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_page_ordering', 20);
                         4. This means 'woocommerce_catalog_page_ordering' is added under the 'woocommerce_before_shop_loop'.
                         5. Remove add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_page_ordering', 20);
-                        6. Rename the function as frskynet_woocommerce_catalog_page_ordering() and add the function inside class="col-md-3" in archive-product.php (3rd one).
-                        7. 
+                        6. Rename the function as frskynet_woocommerce_catalog_page_ordering() and add the function inside class="col-md-3" in archive-product.php row-columns (3rd one).
+                        7. Notice one more thing. 1st line od our pasted code - 
+                                remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+                        8. We already added/said this before. So now de don't need this any more. Remove this line from functions.php.
+                        9. Reload Shop page. Our show per page is in the 3rd column of pagination row.
+                        10. Notice that in Shop page it says 'Items per page' but in category.html it is 'Show'. So go to our function's first span. Replace 'Items per page' by 'Shop' and reload Shop page. Text should be changed.
+                        11. Inspect the Show text from category.html, copy the class name and paste it to span. And also close the span right there then remove the bellow span close tag. Now Reload Shop page. Still we haven't get the style.
+                        12. See the category.html and notice the Show span. There is another divition over this span. So this Show span is under that divition (div).
+                        13. Create a divition (div) over the span in functions.php and set class="lbl-cnt" then close it after form close.
+                        14. Replace form's class="fld inline" instead of class="woocommerce-ordering". Now Reload Shop page.
+                        15. Fix the style by css or add the following code in style.css.
+                                select#woocommerce-sort-by-columns {
+                                    padding: 4px 12px;
+                                    border: 1px solid #ddd;
+                                }
+                        16. Now add the distance of products showing number. We can edit this in apply_filters() function. Follow bellow code - 
+                                $shopCatalog_orderby = apply_filters('woocommerce_sortby_page', array(
+                                        '3' => __('3', 'flipmart'),
+                                        '6' => __('6', 'flipmart'),
+                                        '9' => __('9', 'flipmart'),
+                                        '12' => __('12', 'flipmart'),
+                                        '15' => __('15', 'flipmart'),
+                                        '-1' => __('All', 'flipmart'),
+                                ));
+                        17. Here left side number is the value and right side's first perameter is the showing result and second one is text domain.
+                        18. Reload Shop page. Our option is there.
+                        19. Now go to wp_admin > Settings > Reading and set Blog pages show at most 6 and reload the Shop page again.
 
+                13. Sort by position - 
+                        1. We already removed this option. Notice bellow code - 
+                                add_action('init', 'frskynet_remove_woocommerce_catelog_ordering');
+                                function frskynet_remove_woocommerce_catelog_ordering() {
+                                    remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30, 0);
+                                }
+                        2. Now go to archive-product.php and notice the removed function's name 'woocommerce_catalog_ordering' before our row,columns started which is also placed before do_action('woocommerce_before_shop_loop') function.
+                        3. So we are going to use that function (woocommerce_catalog_ordering) inside our 2nd column.
+                                before: <div class="col-md-3">Col 2</div>
+                                after : <div class="col-md-3"><?php woocommerce_catalog_ordering(); ?></div>
+                        4. Reload Shop page. See there is our sort option is present in 2nd column.
+                        5. After this we can see the difference between our Shop page and the category.html. There is no similarity in between them. We need to customized it.
+                        6. We can edit this from plugins > woocommerce > includes > wc-template-functions.php file. But we don't want to touch plugin files as we want to customized it by ourself and when we will get any updates our site never get broken.
+                        7. Google 'custom woocommerce sorting option' and visit 'https://docs.woocommerce.com/document/custom-sorting-options-ascdesc/' then copy bellow code - 
+                                add_filter( 'woocommerce_get_catalog_ordering_args', 'custom_woocommerce_get_catalog_ordering_args' );
+                                function custom_woocommerce_get_catalog_ordering_args( $args ) {
+                                        $orderby_value = isset( $_GET['orderby'] ) ? wc_clean( $_GET['orderby'] ) : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
+                                        if ( 'random_list' == $orderby_value ) {
+                                                $args['orderby'] = 'rand';
+                                                $args['order'] = '';
+                                                $args['meta_key'] = '';
+                                        }
+                                        return $args;
+                                }
+                                add_filter( 'woocommerce_default_catalog_orderby_options', 'custom_woocommerce_catalog_orderby' );
+                                add_filter( 'woocommerce_catalog_orderby', 'custom_woocommerce_catalog_orderby' );
+                                function custom_woocommerce_catalog_orderby( $sortby ) {
+                                        $sortby['random_list'] = 'Random';
+                                        return $sortby;
+                                }
+
+                        8. Now paste this code to our functions.php.
+                        9. See, there are 2 functions. First one is if we want to pass any argument and the second one is if we want to change the texts in the sorting box in html.
+                        10. So we can remove the first function and keep the second one. Rename the function. Then give a text in the first line inside the function. Replace 'Random' by 'Test Random'. Then reload the Shop page.
+                                add_filter( 'woocommerce_catalog_orderby', 'frskynet_custom_woocommerce_catalog_orderby' );
+                                function frskynet_custom_woocommerce_catalog_orderby( $sortby ) {
+                                        $sortby['random_list'] = 'Test Random';
+                                        return $sortby;
+                                }
+
+                        11. We can see our Test Randon text is in the sorting box. Now we need to design by category.html
+                        12. Copy sort order array items from plugins > woocommerce > includes > wc-template-functions.php file. See bellow code - 
+                                $catalog_orderby_options = apply_filters('woocommerce_catalog_orderby', 
+                                    array(
+                                        'menu_order' => __( 'Default sorting', 'woocommerce' ),
+                                        'popularity' => __( 'Sort by popularity', 'woocommerce' ),
+                                        'rating'     => __( 'Sort by average rating', 'woocommerce' ),
+                                        'date'       => __( 'Sort by latest', 'woocommerce' ),
+                                        'price'      => __( 'Sort by price: low to high', 'woocommerce' ),
+                                        'price-desc' => __( 'Sort by price: high to low', 'woocommerce' ),
+                                    )
+                                );
+
+                        13. Update our function as bellow - 
+                                $sortby['menu_order']  = 'Position';
+                                $sortby['price']       = 'Price:Lowest first';
+                                $sortby['price-desc'] = 'Price:Highest first';
+                                $sortby['menu_order'] = 'Product Name:A to Z';
+
+                        14. As menu_order comes 2 times, remove the last one.
+                                $sortby['menu_order']  = 'Position';
+                                $sortby['price']       = 'Price:Lowest first';
+                                $sortby['price-desc'] = 'Price:Highest first';
+
+                        15. Reloas Shop page. We can see the updates and there is also some other option is present which come from plugins > woocommerce > includes > wc-template-functions.php file. We need to unset all of those. Update function like bellow - 
+                                $sortby['menu_order']  = 'Position';
+                                $sortby['price']       = 'Price:Lowest first';
+                                $sortby['price-desc'] = 'Price:Highest first';
+                                unset($sortby['popularity']);
+                                unset($sortby['date']);
+                                unset($sortby['rating']);
+                        
+                        16. Reloas Shop page. See there is no other option.
+                        17. Now we need to add the 'Sort by' text before sortion box. Inside class="col-md-3" (second column) update code like bellow - 
+                                before: <div class="col-md-3"><?php woocommerce_catalog_ordering() ?></div>
+                                after : 
+                                        <div class="col-md-3">
+                                            <div class="lbl-cnt">
+                                                <span class="lbl">Sort by</span>
+                                                <div class="fld inline">
+                                                    <?php woocommerce_catalog_ordering() ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                        18. Fix the style - 
+                                select.orderby {
+                                        padding: 4px 12px;
+                                        font-size: 13px;
+                                        border: 1px solid #e5e5e5;
+                                }
+
+                        19. Reload and see the changes. This section's width is too large. So in row's first column's class update as col-md-2 and the 2nd one is col-md-4.
+                        20. Now reload and see the changes.
 124. 
 125. 
 126. 

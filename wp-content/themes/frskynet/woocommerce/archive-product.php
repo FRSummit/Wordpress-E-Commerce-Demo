@@ -77,8 +77,15 @@ if (woocommerce_product_loop()) {
     ?>
     <!-- <h1>Hello from our theme template</h1> -->
     <div class="row">
-        <div class="col-md-3">Col 1</div>
-        <div class="col-md-3">Col 2</div>
+        <div class="col-md-2">Col 1</div>
+        <div class="col-md-4">
+            <div class="lbl-cnt">
+                <span class="lbl">Sort by</span>
+                <div class="fld inline">
+                    <?php woocommerce_catalog_ordering() ?>
+                </div>
+            </div>
+        </div>
         <div class="col-md-3"><?php frskynet_woocommerce_catalog_page_ordering() ?></div>
         <div class="col-md-3"><?php flipmart_pagination(); ?></div>
     </div>
