@@ -290,3 +290,12 @@ function frskynet_custom_woocommerce_catalog_orderby($sortby)
     unset($sortby['rating']);
     return $sortby;
 }
+
+/**
+ * Remove default grid-list plugin option
+ */
+add_action('init', 'frskynet_remove_gridlist_plugin_option');
+function frskynet_remove_gridlist_plugin_option()
+{
+    remove_action('woocommerce_before_shop_loop', 'phoen_grid_list_toggle_button', 35, 0);
+}

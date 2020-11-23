@@ -947,6 +947,34 @@ Dynamic Breadcrumb, pagination
 
                         19. Reload and see the changes. This section's width is too large. So in row's first column's class update as col-md-2 and the 2nd one is col-md-4.
                         20. Now reload and see the changes.
+
+                14. Dynamic Grid/List view - 
+                        1. Google 'Grid & List Toggle for Woocommerce' and visit 'https://wordpress.org/plugins/grid-list-toggle-for-woocommerce'. Download the plugin. Then move the plugin in wp-content > plugins folder.
+                        2. Now go to wp_admin > Plugins > Install Plugin and Activate the plugin. Then reload Shop page. We can see the grid/list icon over the pagination row. But we want it inside our 1st column. Right now it comes from plugins. That means hook 'woocommerce_before_shop_loop' echo this grid/list item under itself.
+                        3. Inspect the grid/list. Copy the markup code -  
+                                <nav class="phoen_gridlist_toggle">
+                                        <a href="javascript:void(0);" id="phoen_grid" class="phoen_grid" title="Grid view"><span class="dashicons dashicons-grid-view"></span> </a>
+                                        <a href="javascript:void(0);" id="phoen_list" class="phoen_list active" title="List view"><span class="dashicons dashicons-exerpt-view"></span></a>
+                                </nav>
+
+                        4. Paste this code inside pagination row's first column (col-md-2). Reload page. See the grid/list icon inside our first column. And it works properly.
+                        5. But there are another one over the pagination row. We need to remove this one.
+                        6. Open wp-content > plugins > grid-list-toggle-for-woocommerce > woocommerce_grid_list.php and search for 'woocommerce_before_shop_loop'. There is a function which enable this grid/list section.
+                                add_action( 'woocommerce_before_shop_loop', 'phoen_grid_list_toggle_button',35);
+                        7. We need to remove this from functions.php
+                        8. Copy a remove function and past it bottom of the functions.php and modify like bellow - 
+                                add_action('init', 'frskynet_remove_gridlist_plugin_option');
+                                function frskynet_remove_gridlist_plugin_option() {
+                                    remove_action('woocommerce_before_shop_loop', 'phoen_grid_list_toggle_button', 35, 0);
+                                }
+                        9. Reload the page. Default gridlist is removed.
+                        10. There are some difference in between category.html and our site. Category.html 's gridlist start by ul,li and our's nav. you can fix that by using css.
+                                span.dashicons.dashicons-grid-view,
+                                span.dashicons.dashicons-list-view {
+                                        font-size: 18px;
+                                }
+                        11. To set Grid/List view default go to wp_admin > woocommerce > Settings > Product (tab) > Display  > Default catelog view > Grid/List. For this we have to activate our plugin.
+
 124. 
 125. 
 126. 
