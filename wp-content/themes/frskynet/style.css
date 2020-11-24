@@ -108,6 +108,6 @@ a#grid {
 .woocommerce #content div.product div.summary, .woocommerce div.product div.summary, .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
     width: 58%;
 }
-#woocommerce div.product div.images img {
+.woocommerce div.product div.images img {
     border: 1px solid #ddd;
 }

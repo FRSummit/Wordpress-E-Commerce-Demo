@@ -1119,7 +1119,7 @@ Single Product Page Dynamic
 137. Now go to wp_admin > Woocommerce > System Status. Now it says that we overriden only 2 files. It is not a good idea to override all of the files from plugin and sometimes you have to update woocommerce. Then you need to fix lots of bugs.
 138. Lets design our single product page.
 139. Now open wp-content > plugins > woocommerce > template. There is a file named single-product.php. Copy this and paste it to our theme > woocommerce. Open it in editor and see the construction.
-140. Design 
+140. Design - 
                 1. Open theme > woocommerce > archive-product.php and copy the breadcrumb section with container row section - 
                         <div class="breadcrumb">
                             <div class="container">
@@ -1149,7 +1149,7 @@ Single Product Page Dynamic
                             </div>
                         </div>
                 6. Reload Single page. See ? Our layout os fixed.
-                7. Add 'single-product' class with row class.
+                7. Add 'single-product' class with row class. In our single page row has this class which is not in archive-product.php.
                 8. Fix some style - 
                         .woocommerce #content div.product div.images, .woocommerce div.product div.images, .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images {
                                 width: 38%;
@@ -1157,9 +1157,26 @@ Single Product Page Dynamic
                         .woocommerce #content div.product div.summary, .woocommerce div.product div.summary, .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
                                 width: 58%;
                         }
-                        #woocommerce div.product div.images img {
+                        .woocommerce div.product div.images img {
                                 border: 1px solid #ddd;
                         }
+                9. Dynamic gallery image (Carousel) - 
+                        1. Add some image for it.
+                                1. Go to wp_admin > Product > Select your product (Edit) > Add product gallery image > Update.
+                        2. See the images are not look like carousel. We need to design like detail.html product gallery (owl carousel).
+                        3. Open our theme > assets > js > script.js in editor. In this file we have all of our theme activation functionality.
+                        4. Search for 'SINGLE PRODUCT GALLERY' comment title. The first activation function is for 'items: 1' and the second function is for 'items: 4'. Let's see which one we need.
+                        5. Inspect product image from detail.html and copy full owl-carousel html markup from there. It should be start by class='single-product-gallery-thumbs gallery-thumbs'. Now paste it to notepad++ new tab.
+                        6. Select Language > H > HTML from the menu of notepad++. Pasted markup code should be looks like html.
+                        7. Copy 'items: 4' selector from script.js (owl-single-product-thumbnails) and search notepad++ for it.
+                        8. Notice the repeated part of owl-carousel. It should be start by class="owl-item".
+                        9. See the activation selector in notepad++ (owl-single-product-thumbnails). If we placed it to script.js from where it echo the gallery images then our work is done.
+                        10. Now go to wp-content > plugins > woocommerce > template. See there is a folder named 'single-product'. In this folder there are 2 files. They are product-image.php which is for our product image (big image) and product-thumbnails.php which is for showing our gallery images.
+                        11. Copy single-product folder from wp-content > plugins > woocommerce > template and paste it to our theme > woocommerce.
+                        12. Now open this folder from our theme > woocommerce. There we only work in product-thumbnails.php. So keeping this file remove the rest of the files and folders. Open this file in editor.
+                        13. It looks like new version. Comment all of the code from 'defined( 'ABSPATH' ) || exit' to bottom. Now edit the file like bellow - 
+                                
+
                         
 141. 
 142. 
