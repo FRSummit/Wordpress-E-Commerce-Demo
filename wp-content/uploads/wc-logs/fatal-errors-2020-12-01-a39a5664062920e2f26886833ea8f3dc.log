@@ -20,3 +20,9 @@ Stack trace:
 #5 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\templates\single-product\product-image.php(52): do_action('woocommerce_pro...')
 #6 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\wc-cor in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\single-product\product-thumbnails.php on line 61
 
+2020-12-01T07:01:54+00:00 CRITICAL Cannot redeclare frskynet_remove_woocommerce_catelog_ordering() (previously declared in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php:140) in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php on line 341
+
+2020-12-01T07:01:54+00:00 CRITICAL Cannot redeclare frskynet_remove_woocommerce_catelog_ordering() (previously declared in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php:140) in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php on line 341
+
+2020-12-01T07:01:54+00:00 CRITICAL Cannot redeclare frskynet_remove_woocommerce_catelog_ordering() (previously declared in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php:140) in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\functions.php on line 341
+

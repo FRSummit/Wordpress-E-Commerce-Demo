@@ -330,3 +330,12 @@ function theme_slug_widgets_init() {
         'after_title'  => __('</h3>'),
     ) );
 }
+
+/**
+ * Remove default price
+ */
+add_action('init', 'frskynet_remove_woocommerce_default_price');
+function frskynet_remove_woocommerce_default_price()
+{
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10, 0);
+}

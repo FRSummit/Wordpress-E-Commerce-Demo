@@ -130,3 +130,30 @@ a#grid {
 #owl-single-product-thumbnails .owl-item img {
     width: 89%;
 }
+
+.cart-single .quantity {
+    display: inline-block;
+}
+
+.cart-single input.input-text.qty.text {
+    padding: 7px 10px;
+    width: 65px;
+    border: 1px solid #ccc;
+}
+
+.cart-single .btn.btn-primary {
+    margin-top: -3px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+}
+
+h1.product_title.entry-title {
+    font-weight: 700;
+}
+
+.woocommerce .woocommerce-product-rating .star-rating {
+    margin: .5em 40px 0 0;
+}

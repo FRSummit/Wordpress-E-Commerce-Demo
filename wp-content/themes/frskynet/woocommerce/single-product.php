@@ -40,7 +40,7 @@ get_header( 'shop' ); ?>
 ?>
 
 <div class='col-md-9'>
-	<div class="clearfix filters-container m-t-10">
+	<div class="detail-block">
 
 	<?php
 		/**
@@ -68,10 +68,19 @@ get_header( 'shop' ); ?>
 		do_action( 'woocommerce_after_main_content' );
 	?>
 
+				</div>
+	
+				<div class="product-tabs inner-bottom-xs  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+					<?php woocommerce_output_product_data_tabs(); ?>
+				</div>
+	
+				<div class="section featured-product wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+					<?php woocommerce_output_related_products(); ?>
+				</div>
+
+			</div>
+		</div>
 	</div>
-	</div>
-	</div>
-</div>
 </div>
 
 <?php

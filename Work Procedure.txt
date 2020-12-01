@@ -1246,24 +1246,118 @@ Single Product Page Dynamic
                                     width: 89%;
                                 }
 
-                                
+141. Now open detail.html from template and notice there are 3 parts. 1st one is the product with gallery which we opened from Shop page. Second one is description part and 3rd one is for related products part.
+142. Now open our theme > woocommerce > single-product.php. Notice there is a while loop inside div class="col-md-9" which says there is a template part named 'content single-product'. [<?php wc_get_template_part( 'content', 'single-product' ); ?>]
+143. Inside our theme > woocommerce there is no file named 'content single-product' file. So we need to copy that file from woocommerce plugin.
+144. Open plugins > woocommerce > templates and copy content-single-product.php and paste it to our theme > woocommerce. Open this file in editor.
+145. There are some do_action() function is present here in this file. Notice that there is a do_action('woocommerce_single_product_summary') which hooks title, rating, price etc.
+146. Inspect the 1st part from detail.html and notice the parent div class="detail-block"
+                1. Go to single-product.php and replace class="clearfix filters-container m-t-10" which is inside class="col-md-9" by class="detail-block"
+                        before: <div class="clearfix filters-container m-t-10">
+                        after : <div class="detail-block">
+                2. Reload Single product page.
+                3. Copy this div and paste 2 times (total 3) after this div is finished. Make parallal. Also close those div.
+		        do_action( 'woocommerce_after_main_content' );
+	                ?>
+			    </div>
+			    <div class="detail-block">
+			    </div>
+			    <div class="detail-block">
+			    </div>
+                4. Second  div is for descriptions and the 3rd div is for related product.
+                5. Copy product description hook from content-single-product.php (woocommerce_output_product_data_tabs) and paste it to 2nd div (description div).
+                        <?php woocommerce_output_product_data_tabs(); ?>
+                6. Copy related product hook from content-single-product.php (woocommercwoocommerce_output_related_productse_output_product_data_tabs) and paste it to 3rd div (related product div).
+                        <?php woocommerce_output_related_products(); ?>
+                7. Code looks like bellow - 
+		        do_action( 'woocommerce_after_main_content' );
+	                ?>
+			    </div>
+			    <div class="detail-block">
+                                <?php woocommerce_output_product_data_tabs(); ?>
+			    </div>
+			    <div class="detail-block">
+                                <?php woocommerce_output_related_products(); ?>
+			    </div>
+                9. Comment do_action( 'woocommerce_after_single_product_summary' ); from content-single-product.php to not to echo for some time.
+                10. Inspect tab (description part) from detail.html and copy the class name (class="product-tabs inner-bottom-xs  wow fadeInUp animated") and paste it to single-product.php 2nd div (description div) class. Actually replace 'product-tabs inner-bottom-xs  wow fadeInUp animated' by 'detail-block'. Also copy inline css if present.
+			before: 
+                                <div class="detail-block">
+                                    <?php woocommerce_output_product_data_tabs(); ?>
+			        </div>
+                            
+			after: 
+                                <div class="product-tabs inner-bottom-xs  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                                    <?php woocommerce_output_product_data_tabs(); ?>
+			        </div>
+                11. Inspect tab (related product part) from detail.html and copy the class name (class="section featured-product wow fadeInUp animated") and paste it to single-product.php 3rd div (related product div) class. Actually replace 'section featured-product wow fadeInUp animated' by 'detail-block'. Also copy inline css if present.
+			before: 
+                                <div class="detail-block">
+                                    <?php woocommerce_output_related_products(); ?>
+			        </div>
+                            
+			after: 
+                                <div class="section featured-product wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                                    <?php woocommerce_output_related_products(); ?>
+			        </div>
+                12. Reload the page and we can see the divide part.
 
-                        
-141. 
-142. 
-143. 
-144. 
-145. 
-146. 
-147. 
-148. 
-149. 
-150. 
-151. 
-152. 
-153. 
-154. 
-155. 
+Design 'Add to cart' button inside Product Details page
+============================================================
+147. This 'Add to cart' button get the design from Shop page as both of these has same class.
+148. Go to plugin > woocommerce > templates > single-product and copy 'add-to-cart' folder and paste it to our theme > woocommerce > single-product. Now open simple.php from this folder.
+149. Inside simple.php there is a form with class="cart". Replace class name by class="cart-single". And replace class="single_add_to_cart_button button alt" (button in simple.php form) by class="btn btn-primary". Now add bellow style - 
+                .cart-single .quantity {
+                    display: inline-block;
+                }
+                .cart-single input.input-text.qty.text {
+                    padding: 7px 10px;
+                    width: 65px;
+                    border: 1px solid #ccc;
+                }
+                .cart-single .btn.btn-primary {
+                    margin-top: -3px;
+                }
+                input[type=number]::-webkit-inner-spin-button,
+                input[type=number]::-webkit-outer-spin-button {
+                    opacity: 1;
+                }
+                h1.product_title.entry-title {
+                    font-weight: 700;
+                }
+150. Add font awsome icon inside button.
+                before: 
+                        <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="btn btn-primary">
+                            <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+                        </button>
+                after : 
+                        <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="btn btn-primary">
+                            <i class="fa fa-shopping-cart inner-right-vs"></i>
+                            <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+                        </button>
+151. Star rating icon style - 
+                .woocommerce .woocommerce-product-rating .star-rating {
+                    margin: .5em 40px 0 0;
+                }
+152. Go to woocommerce > template > single-product  and copy rating.php and paste it to our theme > woocommerce > single-product. Open it in editor.
+153. Now remove customer text from the entire file.
+154. Change product stoce
+                1. Go to wp_admin > Product > Select any product > Product data > Inventory
+                2. Check mark 'Manage stock'
+                3. Put a value (10) in Stock quantity input and update the product.
+                4. Reload product detail page. See the product stock.
+
+Price design
+===============
+155. At first we remove default price then we use hook to show our customized price.
+                1. Go to our theme > functions.php and duplicate a remove function.
+                2. Copy 'woocommerce_single_product_summary' do_action() and remove hook 'woocommerce_template_single_price - 10' from content-single-product.php and edit function as bellow - 
+                        add_action('init', 'frskynet_remove_woocommerce_default_price');
+                        function frskynet_remove_woocommerce_default_price() {
+                            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10, 0);
+                        }
+                3. Reload Single product page ans see there is no product price is present in product summery section.
+                4. 
 156. 
 157. 
 158. 
