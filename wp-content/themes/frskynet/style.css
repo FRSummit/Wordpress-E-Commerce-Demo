@@ -145,8 +145,7 @@ a#grid {
     margin-top: -3px;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
     opacity: 1;
 }
 
@@ -157,3 +156,75 @@ h1.product_title.entry-title {
 .woocommerce .woocommerce-product-rating .star-rating {
     margin: .5em 40px 0 0;
 }
+
+.entry-summary .price ins {
+    float: left;
+    margin-right: 5px;
+}
+
+.entry-summary .price ins span.woocommerce-Price-amount {
+    color: #ff7878;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 50px;
+}
+
+.entry-summary .price del span.woocommerce-Price-amount {
+    color: #aaa;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    text-decoration: line-through;
+}
+
+.woocommerce div.product p.price, .woocommerce div.product span.price {
+    color: #77a464;
+    font-size: 1.25em;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin: 20px 0;
+    padding: 20px 0;
+}
+
+.woocommerce div.product p.stock {
+    margin-bottom: 20px;
+}
+
+ul.tabs.wc-tabs {
+    width: 20%;
+    float: left;
+}
+
+ul.tabs.wc-tabs li {
+    background: #eee;
+    padding: 15px 20px;
+    margin-bottom: 1px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+}
+
+ul.tabs.wc-tabs li.active {
+    background: #66ad44;
+}
+
+ul.tabs.wc-tabs li.active a {
+    color: #FFFFFF;
+}
+
+.woocommerce-Tabs-panel {
+    width: 80%;
+    float: right;
+    padding: 20px 30px 30px 40px;
+}
+
+.single-product.woocommerce ul.products,
+.single-product.woocommerce-page ul.products {
+    padding: 30px;
+}
+
+.single-product.woocommerce ul.products li.product,
+.single-product.woocommerce-page ul.products li.product {
+    width: 22.05%;
+}
+

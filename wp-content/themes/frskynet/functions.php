@@ -282,8 +282,8 @@ add_filter('loop_shop_per_page', 'dl_sort_by_page');
 add_filter('woocommerce_catalog_orderby', 'frskynet_custom_woocommerce_catalog_orderby');
 function frskynet_custom_woocommerce_catalog_orderby($sortby)
 {
-    $sortby['menu_order']  = 'Position';
-    $sortby['price']       = 'Price:Lowest first';
+    $sortby['menu_order'] = 'Position';
+    $sortby['price'] = 'Price:Lowest first';
     $sortby['price-desc'] = 'Price:Highest first';
     unset($sortby['popularity']);
     unset($sortby['date']);
@@ -319,16 +319,17 @@ add_action('woocommerce_archive_description', 'frskynet_remove_gridlist_plugin_o
  * Sidebar Register
  */
 add_action('widgets_init', 'theme_slug_widgets_init');
-function theme_slug_widgets_init() {
-    register_sidebar( array(
-        'name'         => __('Left Sidebar', 'flipmart'),
-        'id'           => 'left_sidebar',
-        'description'  => __('widgets  in this area  will be shown on  all posts and pages', 'flipmart'),
-        'before_widget'=> __('<div class="sidebar-widget wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">'),
+function theme_slug_widgets_init()
+{
+    register_sidebar(array(
+        'name' => __('Left Sidebar', 'flipmart'),
+        'id' => 'left_sidebar',
+        'description' => __('widgets  in this area  will be shown on  all posts and pages', 'flipmart'),
+        'before_widget' => __('<div class="sidebar-widget wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">'),
         'after_widget' => __('</div>'),
         'before_title' => __('<h3 class="section-title">'),
-        'after_title'  => __('</h3>'),
-    ) );
+        'after_title' => __('</h3>'),
+    ));
 }
 
 /**
@@ -338,4 +339,14 @@ add_action('init', 'frskynet_remove_woocommerce_default_price');
 function frskynet_remove_woocommerce_default_price()
 {
     remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10, 0);
+    add_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 25, 0);
+}
+
+/**
+ * Remove default price
+ */
+add_action('init', 'frskynet_remove_woocommerce_default_category_tag');
+function frskynet_remove_woocommerce_default_category_tag()
+{
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40, 0);
 }

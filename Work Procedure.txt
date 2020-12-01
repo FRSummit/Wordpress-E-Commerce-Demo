@@ -1357,52 +1357,93 @@ Price design
                             remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10, 0);
                         }
                 3. Reload Single product page ans see there is no product price is present in product summery section.
-                4. 
-156. 
-157. 
-158. 
-159. 
-160. 
-161. 
-162. 
-163. 
-164. 
-165. 
-166. 
-167. 
-168. 
-169. 
-170. 
-171. 
-172. 
-173. 
-174. 
-175. 
-176. 
-177. 
-178. 
-179. 
-180. 
-181. 
-182. 
-183. 
-184. 
-185. 
-186. 
-187. 
-188. 
-189. 
-190. 
-191. 
-192. 
-193. 
-194. 
-195. 
-196. 
-197. 
-198. 
-199. 
-200. 
+                4. Now we are going to add this price after product summery.
+                5. Modify the function as bellow - (just add an add_action() and set priority 25 which is grater than 'woocommerce_template_single_excerpt - 20' - (content-single-product.php) )
+                        add_action('init', 'frskynet_remove_woocommerce_default_price');
+                        function frskynet_remove_woocommerce_default_price() {
+                            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10, 0);
+                            add_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 25, 0);
+                        }
+                6. Now fix some style as bellow - 
+                        .entry-summary .price ins {
+                            float: left;
+                            margin-right: 5px;
+                        }
+                        .entry-summary .price ins span.woocommerce-Price-amount {
+                            color: #ff7878;
+                            font-size: 30px;
+                            font-weight: 700;
+                            line-height: 50px;
+                        }
+                        .entry-summary .price del span.woocommerce-Price-amount {
+                            color: #aaa;
+                            font-size: 16px;
+                            font-weight: 300;
+                            line-height: 50px;
+                            text-decoration: line-through;
+                        }
+                        .woocommerce div.product p.price, .woocommerce div.product span.price {
+                            color: #77a464;
+                            font-size: 1.25em;
+                            border-top: 1px solid #eee;
+                            border-bottom: 1px solid #eee;
+                            margin: 20px 0;
+                            padding: 20px 0;
+                        }
+                        .woocommerce div.product p.stock {
+                            margin-bottom: 20px;
+                        }
+
+156. Hiding Category tag after 'Add to cart' button - 
+                1. By remove_action() function we can remove this.
+                2. Go to content-single-product.php and see the position.
+                3. It is under do_action( 'woocommerce_single_product_summary' ); function and the hook is 'woocommerce_template_single_meta - 40'.
+                4. Add a remove function as bellow - 
+                        add_action('init', 'frskynet_remove_woocommerce_default_category_tag');
+                        function frskynet_remove_woocommerce_default_category_tag() {
+                            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40, 0);
+                        }
+                5. Reload and see the changes.
+
+157. Tab/Description Section style - 
+                1. Add following style - 
+                        ul.tabs.wc-tabs {
+                            width: 20%;
+                            float: left;
+                        }
+                        ul.tabs.wc-tabs li {
+                            background: #eee;
+                            padding: 15px 20px;
+                            margin-bottom: 1px;
+                            font-weight: 700;
+                            color: #555;
+                            text-transform: uppercase;
+                        }
+                        ul.tabs.wc-tabs li.active {
+                            background: #66ad44;
+                        }
+                        ul.tabs.wc-tabs li.active a {
+                            color: #FFFFFF;
+                        }
+                        .woocommerce-Tabs-panel {
+                            width: 80%;
+                            float: right;
+                            padding: 20px 30px 30px 40px;
+                        }
+
+158. review Section style - 
+                1. Add following style - 
+                        .single-product.woocommerce ul.products,
+                        .single-product.woocommerce-page ul.products {
+                            padding: 30px;
+                        }
+
+                        .single-product.woocommerce ul.products li.product,
+                        .single-product.woocommerce-page ul.products li.product {
+                            width: 22.05%;
+                        }
+
+159. Till now we alomst fixed all of our major templates. From now we should develop our custom template. THank you
 
 ===============================================
 HOW TO UPDATE WORDPRESS MANUALLY
