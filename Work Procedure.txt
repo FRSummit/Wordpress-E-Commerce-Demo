@@ -1177,6 +1177,77 @@ Single Product Page Dynamic
                         13. It looks like new version. Comment all of the code from 'defined( 'ABSPATH' ) || exit' to bottom. Now edit the file like bellow - 
                                 
 
+                                if ( !defined( 'ABSPATH' )) {
+                                    exit;
+                                }
+
+                                global $post, $product, $woocommerce;
+
+                                $attachment_ids = $product->get_gallery_image_ids();
+
+                                if($attachment_ids) {
+                                    $loop    = 0;
+                                    $columns = apply_filters('woocommerce_product_thumbnails_columns', 3);
+                                    ?>
+                                    <div class="thumbnails <?php echo 'columns-' . $columns; ?>"><?php
+                                        foreach( $attachment_ids as $attachment_id ) {
+                                            $classes  = array( 'zoom' );
+
+                                            if($loop === 0 || $loop % $columns === 0) {
+                                                $classes[] = 'first';
+                                            }
+                                                        
+                                            if( ( $loop + 1 ) % $columns === 0) {
+                                                $classes[] = 'last';
+                                            }
+
+                                            $image_class = implode('', $classes);
+                                            $props       = wc_get_product_attachment_props( $attachment_id, $post );
+
+                                            if( !$props['url'] ) {
+                                                continue;
+                                            }
+
+                                            echo apply_filters(
+                                                'woocommerce_single_product_image_thumbnail_html',
+                                                sprintf(
+                                                    '<a href="%s" class="%s" title="%s" data-rel="prettyPhoto[product-gallery]">%s</a>',
+                                                    esc_url( $props['url'] ),
+                                                    esc_attr( $image_class ),
+                                                    esc_attr( $props['caption'] ),
+                                                    wp_get_attachment_image( $attachment_id, apply_filters(
+                                                        'single_product_small_thumbnail_size', 'shop_thumbnail'), 0, $props
+                                                    )
+                                                ),
+                                                $attachment_id,
+                                                $post->ID,
+                                                esc_attr( $image_class )
+                                            );
+                                            $loop++;
+                                        }
+                                    ?></div>
+                                    <?php
+                                }
+                        14. No notice here, there is a foreach loop and all of our gallery images are print from sprintf() function.
+                        15. Now we are going to add an id inside second if statement's divition (div) which is defined as - [<div class="thumbnails <?php echo 'columns-' . $columns; ?>"></div>]
+                        16. This id comes from our theme > assets > js > script.js [items:4] activation id. [owl-single-product-thumbnails]
+                                before: <div class="thumbnails <?php echo 'columns-' . $columns; ?>"></div>
+                                after : <div id="owl-single-product-thumbnails" class="thumbnails <?php echo 'columns-' . $columns; ?>"></div>
+                        17. Now reload the Single page. Owl Carousel is almost done. We neet to fix some style for this stage.
+                        18. Notice carefuly, we have a dynamic class with id. [class="thumbnails <?php echo 'columns-' . $columns; ?>"]. Remove the class and reload again. Near almost.
+                        19. Add some style in class="owl-item" as bellow - 
+                                #owl-single-product-thumbnails {
+                                    margin-top: 15px;
+                                }
+                                #owl-single-product-thumbnails .owl-item {
+                                    margin-right: 2px;
+                                }
+                                #owl-single-product-thumbnails .owl-item img {
+                                    width: 89%;
+                                }
+
+                                
+
                         
 141. 
 142. 

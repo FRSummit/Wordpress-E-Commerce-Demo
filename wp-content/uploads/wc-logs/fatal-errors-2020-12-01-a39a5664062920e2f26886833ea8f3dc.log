@@ -1,0 +1,22 @@
+2020-12-01T03:55:12+00:00 CRITICAL Maximum execution time of 30 seconds exceeded in C:\xampp\htdocs\wordpress-ecommerce\wp-includes\Requests\Transport\cURL.php on line 441
+
+2020-12-01T04:45:44+00:00 CRITICAL Uncaught Error: Call to undefined function wc_get_product_image_props() in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\single-product\product-thumbnails.php:61
+Stack trace:
+#0 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1487): wc_get_template('single-product/...')
+#2 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-hook.php(287): woocommerce_show_product_thumbnails('')
+#3 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#4 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#5 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\templates\single-product\product-image.php(52): do_action('woocommerce_pro...')
+#6 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\wc-cor in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\single-product\product-thumbnails.php on line 61
+
+2020-12-01T04:45:50+00:00 CRITICAL Uncaught Error: Call to undefined function wc_get_product_image_props() in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\single-product\product-thumbnails.php:61
+Stack trace:
+#0 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1487): wc_get_template('single-product/...')
+#2 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-hook.php(287): woocommerce_show_product_thumbnails('')
+#3 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#4 C:\xampp\htdocs\wordpress-ecommerce\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#5 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\templates\single-product\product-image.php(52): do_action('woocommerce_pro...')
+#6 C:\xampp\htdocs\wordpress-ecommerce\wp-content\plugins\woocommerce\includes\wc-cor in C:\xampp\htdocs\wordpress-ecommerce\wp-content\themes\frskynet\woocommerce\single-product\product-thumbnails.php on line 61
+

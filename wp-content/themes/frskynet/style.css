@@ -72,42 +72,61 @@ Text Domain: flipmart
     float: right;
 }
 
-.pagination-container ul li a.next.page-numbers,
-.pagination-container ul li a.prev.page-numbers {
+.pagination-container ul li a.next.page-numbers, .pagination-container ul li a.prev.page-numbers {
     background: #ccc none repeat scroll 0 0;
     color: #fff;
     padding: 0 9px;
     border-radius: 4px;
 }
-.pagination-container ul li:hover a.next.page-numbers,
-.pagination-container ul li:hover a.prev.page-numbers {
+
+.pagination-container ul li:hover a.next.page-numbers, .pagination-container ul li:hover a.prev.page-numbers {
     background: #333;
 }
+
 select#woocommerce-sort-by-columns {
     padding: 4px 12px;
     border: 1px solid #ddd;
 }
+
 select.orderby {
     padding: 4px 12px;
     font-size: 13px;
     border: 1px solid #e5e5e5;
 }
+
 /* span.dashicons.dashicons-grid-view,
 span.dashicons.dashicons-list-view {
     font-size: 18px;
 } */
+
 .gridlist-toggle .dashicons:before, .gridlist-toggle .dashicons {
     font-size: 18px;
 }
+
 a#grid {
     cursor: pointer;
 }
+
 .woocommerce #content div.product div.images, .woocommerce div.product div.images, .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images {
     width: 38%;
 }
+
 .woocommerce #content div.product div.summary, .woocommerce div.product div.summary, .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
     width: 58%;
 }
+
 .woocommerce div.product div.images img {
     border: 1px solid #ddd;
+}
+
+#owl-single-product-thumbnails {
+    margin-top: 15px;
+}
+
+#owl-single-product-thumbnails .owl-item {
+    margin-right: 2px;
+}
+
+#owl-single-product-thumbnails .owl-item img {
+    width: 89%;
 }
